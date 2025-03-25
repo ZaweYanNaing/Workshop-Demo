@@ -1,341 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auto Workshop Finder</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#0EA5E9",
-              secondary: "#64748B",
-            },
-            borderRadius: {
-              none: "0px",
-              sm: "4px",
-              DEFAULT: "8px",
-              md: "12px",
-              lg: "16px",
-              xl: "20px",
-              "2xl": "24px",
-              "3xl": "32px",
-              full: "9999px",
-              button: "8px",
-            },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auto Workshop Finder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            myanmar: ['Noto Sans Myanmar', 'sans-serif']
+          },
+          colors: {
+            primary: "#0EA5E9",
+            secondary: "#64748B",
+          },
+          borderRadius: {
+            none: "0px",
+            sm: "4px",
+            DEFAULT: "8px",
+            md: "12px",
+            lg: "16px",
+            xl: "20px",
+            "2xl": "24px",
+            "3xl": "32px",
+            full: "9999px",
+            button: "8px",
           },
         },
-      };
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
-    <style>
-      :where([class^="ri-"])::before { content: "\f3c2"; }
-      .map-container {
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+  <style>
+    :where([class^="ri-"])::before {
+      content: "\f3c2";
+    }
+
+    .map-container {
       background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png');
       background-position: center;
       background-size: cover;
-      }
-    </style>
-  </head>
-  <body class="bg-gray-50 min-h-screen">
-    <nav class="bg-white shadow-sm">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex justify-between h-16">
-          <div class="flex items-center">
-            <span class="text-2xl font-['Pacifico'] text-primary">logo</span>
-          </div>
-          <div class="flex items-center space-x-8">
-            <a href="index.html" class="text-gray-700 hover:text-primary">Home</a>
-            <a
-              href="services.html"
-              data-readdy="true"
-              class="text-gray-700 hover:text-primary"
-              >Services</a
-            >
-            <a href="book.html" class="text-gray-700 hover:text-primary">Book Now</a>
-            <button
-              class="flex items-center space-x-2 text-gray-700 hover:text-primary"
-            >
-              <i
-                class="ri-user-line w-5 h-5 flex items-center justify-center"
-              ></i>
-              <span>Account</span>
-            </button>
-          </div>
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <span class="text-2xl font-['Pacifico'] text-primary">logo</span>
         </div>
-      </div>
-    </nav>
-    <div class="max-w-7xl mx-auto px-4 py-8">
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">
-          Find Your Nearest Auto Workshop
-        </h1>
-        <p class="text-lg text-gray-600 mb-6">
-          Quick and reliable auto repair services near you
-        </p>
-        <div class="relative max-w-2xl mx-auto">
-          <input
-            type="text"
-            placeholder="Enter your location or postal code"
-            class="w-full px-4 py-3 pl-12 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-          <i
-            class="ri-map-pin-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 flex items-center justify-center"
-          ></i>
-        </div>
-      </div>
-      <div class="flex gap-6 mb-8">
-        <div
-          class="w-3/5 h-[600px] rounded-lg overflow-hidden shadow-lg map-container"
-        ></div>
-        <div class="w-2/5 space-y-4">
-          <div
-            class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-          >
-            <div class="flex justify-between items-start mb-3">
-              <div>
-                <h3 class="text-lg font-semibold">Premium Auto Care</h3>
-                <div class="flex items-center text-sm text-gray-600">
-                  <i
-                    class="ri-star-fill text-yellow-400 w-4 h-4 flex items-center justify-center"
-                  ></i>
-                  <span class="ml-1">4.8 (234 reviews)</span>
-                </div>
-              </div>
-              <span class="text-sm text-gray-600">0.8 miles away</span>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <span class="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                >09:00 AM</span
-              >
-              <span class="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                >10:30 AM</span
-              >
-              <span class="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                >02:00 PM</span
-              >
-            </div>
-            <button
-              class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
-            >
-              Book Now
-            </button>
-          </div>
-          <div
-            class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-          >
-            <div class="flex justify-between items-start mb-3">
-              <div>
-                <h3 class="text-lg font-semibold">Quick Fix Auto</h3>
-                <div class="flex items-center text-sm text-gray-600">
-                  <i
-                    class="ri-star-fill text-yellow-400 w-4 h-4 flex items-center justify-center"
-                  ></i>
-                  <span class="ml-1">4.6 (186 reviews)</span>
-                </div>
-              </div>
-              <span class="text-sm text-gray-600">1.2 miles away</span>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <span class="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                >11:00 AM</span
-              >
-              <span class="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                >01:30 PM</span
-              >
-              <span class="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                >03:00 PM</span
-              >
-            </div>
-            <button
-              class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
-            >
-              Book Now
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-        <h2 class="text-2xl font-bold mb-6">Book Your Service</h2>
-        <div class="grid grid-cols-2 gap-8">
-          <div class="space-y-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Vehicle Details</label
-              >
-              <div class="grid grid-cols-3 gap-4">
-                <input
-                  type="text"
-                  placeholder="Make"
-                  class="w-full px-4 py-2 border rounded-button"
-                />
-                <input
-                  type="text"
-                  placeholder="Model"
-                  class="w-full px-4 py-2 border rounded-button"
-                />
-                <input
-                  type="text"
-                  placeholder="Year"
-                  class="w-full px-4 py-2 border rounded-button"
-                />
-              </div>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Service Type</label
-              >
-              <select class="w-full px-4 py-2 border rounded-button">
-                <option>Regular Maintenance</option>
-                <option>Brake Service</option>
-                <option>Engine Repair</option>
-                <option>Tire Service</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Problem Description</label
-              >
-              <textarea
-                class="w-full px-4 py-2 border rounded-button h-32"
-                placeholder="Describe the issue you're experiencing..."
-              ></textarea>
-            </div>
-          </div>
-          <div class="space-y-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Contact Information</label
-              >
-              <input
-                type="text"
-                placeholder="Full Name"
-                class="w-full px-4 py-2 border rounded-button mb-4"
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                class="w-full px-4 py-2 border rounded-button mb-4"
-              />
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                class="w-full px-4 py-2 border rounded-button"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Preferred Date & Time</label
-              >
-              <input
-                type="date"
-                class="w-full px-4 py-2 border rounded-button mb-4"
-              />
-              <select class="w-full px-4 py-2 border rounded-button">
-                <option>Morning (9AM - 12PM)</option>
-                <option>Afternoon (12PM - 4PM)</option>
-                <option>Evening (4PM - 7PM)</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid grid-cols-4 gap-6 mb-8">
-        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-          <i
-            class="ri-shield-check-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"
-          ></i>
-          <h3 class="font-semibold mb-2">Certified Mechanics</h3>
-          <p class="text-sm text-gray-600">
-            All our mechanics are certified professionals
-          </p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-          <i
-            class="ri-time-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"
-          ></i>
-          <h3 class="font-semibold mb-2">Quick Service</h3>
-          <p class="text-sm text-gray-600">Most repairs completed same day</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-          <i
-            class="ri-money-dollar-circle-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"
-          ></i>
-          <h3 class="font-semibold mb-2">Best Prices</h3>
-          <p class="text-sm text-gray-600">Competitive pricing guaranteed</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-          <i
-            class="ri-customer-service-2-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"
-          ></i>
-          <h3 class="font-semibold mb-2">24/7 Support</h3>
-          <p class="text-sm text-gray-600">Always here when you need us</p>
+        <div class="flex items-center space-x-8">
+          <button id="translateBtn" class="px-3 py-1 border rounded-button text-sm hover:bg-gray-100"
+            onclick="toggleLanguage()">
+            MY
+          </button>
+          <a href="index.html" class="text-gray-700 hover:text-primary" data-translate="home">Home</a>
+          <a href="services.html" data-readdy="true" class="text-gray-700 hover:text-primary"
+            data-translate="services">Services</a>
+          <a href="book.html" class="text-gray-700 hover:text-primary" data-translate="book">Book Now</a>
+          <button class="flex items-center space-x-2 text-gray-700 hover:text-primary">
+            <i class="ri-user-line w-5 h-5 flex items-center justify-center"></i>
+            <span data-translate="account">Account</span>
+          </button>
         </div>
       </div>
     </div>
-    <footer class="bg-gray-900 text-white py-12">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-4 gap-8">
-          <div>
-            <h4 class="font-['Pacifico'] text-2xl mb-4">logo</h4>
-            <p class="text-gray-400">
-              Your trusted partner for all auto repair needs
-            </p>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4" data-translate="findYourNearestAutoWorkshop">
+        Find Your Nearest Auto Workshop
+      </h1>
+      <p class="text-lg text-gray-600 mb-6" data-translate="quickAndReliableAutoRepairServicesNearYou">
+        Quick and reliable auto repair services near you
+      </p>
+      <div class="relative max-w-2xl mx-auto">
+        <input type="text" placeholder="Enter your location or postal code" data-translate-placeholder="enterLocation"
+          class="w-full px-4 py-3 pl-12 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary/20" />
+        <i
+          class="ri-map-pin-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 flex items-center justify-center"></i>
+      </div>
+    </div>
+    <div class="flex gap-6 mb-8">
+      <div class="w-3/5 h-[600px] rounded-lg overflow-hidden shadow-lg map-container"></div>
+      <div class="w-2/5 space-y-4">
+        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="text-lg font-semibold" data-translate="premiumAutoCare">Premium Auto Care</h3>
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="ri-star-fill text-yellow-400 w-4 h-4 flex items-center justify-center"></i>
+                <span class="ml-1">4.8 (234 reviews)</span>
+              </div>
+            </div>
+            <span class="text-sm text-gray-600">0.8 miles away</span>
           </div>
-          <div>
-            <h4 class="font-semibold mb-4">Quick Links</h4>
-            <ul class="space-y-2 text-gray-400">
-              <li><a href="#" class="hover:text-white">About Us</a></li>
-              <li><a href="#" class="hover:text-white">Services</a></li>
-              <li><a href="#" class="hover:text-white">Locations</a></li>
-              <li><a href="#" class="hover:text-white">Contact</a></li>
-            </ul>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="px-3 py-1 text-sm bg-gray-100 rounded-full" data-translate="9Am">09:00 AM</span>
+            <span class="px-3 py-1 text-sm bg-gray-100 rounded-full" data-translate="10:30Am">10:30 AM</span>
+            <span class="px-3 py-1 text-sm bg-gray-100 rounded-full" data-translate="2Pm">02:00 PM</span>
           </div>
-          <div>
-            <h4 class="font-semibold mb-4">Services</h4>
-            <ul class="space-y-2 text-gray-400">
-              <li><a href="#" class="hover:text-white">Oil Change</a></li>
-              <li><a href="#" class="hover:text-white">Brake Service</a></li>
-              <li><a href="#" class="hover:text-white">Tire Rotation</a></li>
-              <li><a href="#" class="hover:text-white">Engine Repair</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="font-semibold mb-4">Contact Us</h4>
-            <ul class="space-y-2 text-gray-400">
-              <li class="flex items-center">
-                <i
-                  class="ri-phone-line w-5 h-5 flex items-center justify-center mr-2"
-                ></i>
-                1-800-AUTO-HELP
-              </li>
-              <li class="flex items-center">
-                <i
-                  class="ri-mail-line w-5 h-5 flex items-center justify-center mr-2"
-                ></i>
-                support@autoworkshop.com
-              </li>
-            </ul>
-          </div>
+          <button class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+            data-translate="book">
+            Book Now
+          </button>
         </div>
-        <div
-          class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"
-        >
-          <p>&copy; 2025 Auto Workshop Finder. All rights reserved.</p>
+        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="text-lg font-semibold" data-translate="quickFixAuto">Quick Fix Auto</h3>
+              <div class="flex items-center text-sm text-gray-600">
+                <i class="ri-star-fill text-yellow-400 w-4 h-4 flex items-center justify-center"></i>
+                <span class="ml-1">4.6 (186 reviews)</span>
+              </div>
+            </div>
+            <span class="text-sm text-gray-600">1.2 miles away</span>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="px-3 py-1 text-sm bg-gray-100 rounded-full" data-translate="11Am">11:00 AM</span>
+            <span class="px-3 py-1 text-sm bg-gray-100 rounded-full" data-translate="1:30Pm">01:30 PM</span>
+            <span class="px-3 py-1 text-sm bg-gray-100 rounded-full" data-translate="3Pm">03:00 PM</span>
+          </div>
+          <button class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+            data-translate="book">
+            Book Now
+          </button>
         </div>
       </div>
-    </footer>
-  </body>
+    </div>
+    <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+      <h2 class="text-2xl font-bold mb-6" data-translate="bookYourService">Book Your Service</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="vehicleDetails">Vehicle
+              Details</label>
+            <div class="grid grid-cols-3 gap-4">
+              <input type="text" placeholder="Make" class="w-full px-4 py-2 border rounded-button" />
+              <input type="text" placeholder="Model" class="w-full px-4 py-2 border rounded-button" />
+              <input type="text" placeholder="Year" class="w-full px-4 py-2 border rounded-button" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="serviesType">Service
+              Type</label>
+            <select class="w-full px-4 py-2 border rounded-button">
+              <option data-translate="regularMaintenance">Regular Maintenance</option>
+              <option data-translate="brakeService">Brake Service</option>
+              <option data-translate="engineRepair">Engine Repair</option>
+              <option data-translate="tireService">Tire Service</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="problemDescription">Problem
+              Description</label>
+            <textarea class="w-full px-4 py-2 border rounded-button h-32"
+              placeholder="Describe the issue you're experiencing..."></textarea>
+          </div>
+        </div>
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="contactInformation">Contact
+              Information</label>
+            <input type="text" placeholder="Full Name" class="w-full px-4 py-2 border rounded-button mb-4" />
+            <input type="email" placeholder="Email Address" class="w-full px-4 py-2 border rounded-button mb-4" />
+            <input type="tel" placeholder="Phone Number" class="w-full px-4 py-2 border rounded-button" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="preferredDate&Time">Preferred
+              Date & Time</label>
+            <input type="date" class="w-full px-4 py-2 border rounded-button mb-4" />
+            <select class="w-full px-4 py-2 border rounded-button">
+              <option data-translate="Morning(9AM-12PM)">Morning (9AM - 12PM)</option>
+              <option data-translate="Afternoon(12PM-4PM)">Afternoon (12PM - 4PM)</option>
+              <option data-translate="Evening(4PM-7PM)">Evening (4PM - 7PM)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-4 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <i
+          class="ri-shield-check-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"></i>
+        <h3 class="font-semibold mb-2" data-translate="certifiedMechanics">Certified Mechanics</h3>
+        <p class="text-sm text-gray-600" data-translate="allOurMechanicsAreCertifiedProfessionals">
+          All our mechanics are certified professionals
+        </p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <i class="ri-time-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"></i>
+        <h3 class="font-semibold mb-2" data-translate="quickService">Quick Service</h3>
+        <p class="text-sm text-gray-600" data-translate="mostRepairsCompletedSameDay">Most repairs completed same day
+        </p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <i
+          class="ri-money-dollar-circle-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"></i>
+        <h3 class="font-semibold mb-2" data-translate="bestPrices">Best Prices</h3>
+        <p class="text-sm text-gray-600" data-translate="competitivePricingGuaranteed">Competitive pricing guaranteed
+        </p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <i
+          class="ri-customer-service-2-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"></i>
+        <h3 class="font-semibold mb-2" data-translate="24/7 Support">24/7 Support</h3>
+        <p class="text-sm text-gray-600" data-translate="alwaysHereWhenYouNeedUs">Always here when you need us</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-4 gap-8">
+        <div>
+          <h4 class="font-['Pacifico'] text-2xl mb-4">logo</h4>
+          <p class="text-gray-400" data-translate="footerTagline">
+            Your trusted partner for all auto repair needs
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4" data-translate="quickLinks">Quick Links</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white" data-translate="aboutUs">About Us</a></li>
+            <li><a href="#" class="hover:text-white" data-translate="services">Services</a></li>
+            <li><a href="#" class="hover:text-white" data-translate="locations">Locations</a></li>
+            <li><a href="#" class="hover:text-white" data-translate="contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4" data-translate="services">Services</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white" data-translate="oilChange">Oil Change</a></li>
+            <li><a href="#" class="hover:text-white" data-translate="brakeService">Brake Service</a></li>
+            <li><a href="#" class="hover:text-white" data-translate="tireRotation">Tire Rotation</a></li>
+            <li><a href="#" class="hover:text-white" data-translate="engineRepair">Engine Repair</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4" data-translate="contactUs">Contact Us</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-center">
+              <i class="ri-phone-line w-5 h-5 flex items-center justify-center mr-2"></i>
+              1-800-AUTO-HELP
+            </li>
+            <li class="flex items-center">
+              <i class="ri-mail-line w-5 h-5 flex items-center justify-center mr-2"></i>
+              support@autoworkshop.com
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p data-translate="copyright">&copy; 2025 Auto Workshop Finder. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+
+    const translations = {
+      'home': { en: 'Home', my: 'ပင်မ' },
+      'services': { en: 'Services', my: 'ဝန်ဆောင်မှုများ' },
+      'book': { en: 'Book Now', my: 'စာရင်းသွင်းရန်' },
+      'account': { en: 'Account', my: 'အကောင့်' },
+
+      //
+      'enterLocation': { 
+        en: 'Enter your location or postal code', 
+        my: 'တည်နေရာ သို့မဟုတ် စာတိုက်သင်္ကေတ ရိုက်ထည့်ပါ' 
+      },
+      'findYourNearestAutoWorkshop': { en: 'Find Your Nearest Auto Workshop', my: 'သင့်အနီးဆုံး ကားပြင်ဆိုင်ရှာဖွေပါ' },
+      'quickAndReliableAutoRepairServicesNearYou': { en: 'Quick and reliable auto repair services near you', my: 'သင့်နေရာအနီးပတ်ဝန်းကျင်ရှိ မြန်ဆန်စိတ်ချရသော ကားပြင်ဝန်ဆောင်မှုများ' },
+      'premiumAutoCare': { en: 'Premium Auto Care', my: 'အဆင့်မြင့်ကားပြင်စောင့်ရှောက်မှု' },
+      '9Am': { en: '09:00 AM', my: 'မနက် ၉ နာရီ' },
+      '10:30Am': { en: '10:30 AM', my: 'မနက် ၁၀:၃၀' },
+      '2Pm': { en: '02:00 PM', my: 'မွန်းလွဲ ၂ နာရီ' },
+      '11Am': { en: '11:00 AM', my: 'မနက် ၁၁ နာရီ' },
+      '1:30Pm': { en: '01:30 PM', my: 'မွန်းလွဲ ၁:၃၀' },
+      '3Pm': { en: '03:00 PM', my: 'မွန်းလွဲ ၃ နာရီ' },
+      'bookYourService': { en: 'Book Your Service', my: 'ဝန်ဆောင်မှုစာရင်းသွင်းပါ' },
+      'vehicleDetails': { en: 'Vehicle Details', my: 'ယာဉ်အသေးစိတ်များ' },
+      'serviesType': { en: 'Service Type', my: 'ဝန်ဆောင်မှုအမျိုးအစား' },
+      'problemDescription': { en: 'Problem Description', my: 'ပြဿနာအကြောင်းရှင်းလင်းချက်' },
+      'contactInformation': { en: 'Contact Information', my: 'ဆက်သွယ်ရန်အချက်အလက်' },
+      'preferredDate&Time': { en: 'Preferred Date & Time', my: 'နှစ်သက်ရာရက်နှင့်အချိန်' },
+      'regularMaintenance': { en: 'Regular Maintenance', my: 'ပုံမှန်ထိန်းသိမ်းမှု' },
+      'brakeService': { en: 'Brake Service', my: 'ဘရိတ်ပြင်ဆင်မှု' },
+      'engineRepair': { en: 'Engine Repair', my: 'အင်ဂျင်ပြင်ဆင်မှု' },
+      'tireService': { en: 'Tire Service', my: 'တာယာဝန်ဆောင်မှု' },
+      'certifiedMechanics': { en: 'Certified Mechanics', my: 'လိုင်စင်ရပညာရှင်များ' },
+      'allOurMechanicsAreCertifiedProfessionals': { en: 'All our mechanics are certified professionals', my: 'ကျွန်ုပ်တို့၏ပညာရှင်အားလုံးသည် လိုင်စင်ရပညာရှင်များဖြစ်သည်' },
+      'quickService': { en: 'Quick Service', my: 'မြန်ဆန်သောဝန်ဆောင်မှု' },
+      'mostRepairsCompletedSameDay': { en: 'Most repairs completed same day', my: 'အများစုသောပြင်ဆင်မှုများကို တစ်ရက်တည်းပြီးစီးသည်' },
+      'bestPrices': { en: 'Best Prices', my: 'အကောင်းဆုံးစျေးနှုန်းများ' },
+      'competitivePricingGuaranteed': { en: 'Competitive pricing guaranteed', my: 'ယှဉ်ပြိုင်နိုင်သောစျေးနှုန်းများ အာမခံချက်' },
+      '24/7 Support': { en: '24/7 Support', my: '၂၄ နာရီ ကူညီပံ့ပိုးမှု' },
+      'alwaysHereWhenYouNeedUs': { en: 'Always here when you need us', my: 'သင်လိုအပ်သည့်အခါတိုင်း ရှိနေပါမည်' },
+      'Morning(9AM-12PM)': { en: 'Morning (9AM - 12PM)', my: 'မနက် (၉နာရီမှ ၁၂နာရီ)' },
+      'Afternoon(12PM-4PM)': { en: 'Afternoon (12PM - 4PM)', my: 'မွန်းလွဲ (၁၂နာရီမှ ၄နာရီ)' },
+      'Evening(4PM-7PM)': { en: 'Evening (4PM - 7PM)', my: 'ညနေ (၄နာရီမှ ၇နာရီ)' },
+      //
+      'footerTagline': { en: 'Your trusted partner for all auto repair needs', my: 'ကားပြင်ဆိုင်လိုအပ်ချက်အားလုံးအတွက် ယုံကြည်စိတ်ချရသော မိတ်ဖက်တစ်ဦး' },
+      'quickLinks': { en: 'Quick Links', my: 'အမြန်လင့်ခ်များ' },
+      'aboutUs': { en: 'About Us', my: 'ကျွန်ုပ်တို့အကြောင်း' },
+      'locations': { en: 'Locations', my: 'တည်နေရာများ' },
+      'contact': { en: 'Contact', my: 'ဆက်သွယ်ရန်' },
+      'oilChange': { en: 'Oil Change', my: 'ဆီအပြောင်းအလဲ' },
+      'tireRotation': { en: 'Tire Rotation', my: 'တာယာလှည့်ပတ်မှု' },
+      'contactUs': { en: 'Contact Us', my: 'ဆက်သွယ်ရန်' },
+      'copyright': { en: '© 2025 Auto Workshop Finder. All rights reserved.', my: 'မူပိုင်ခွင့် © ၂၀၂၅ ကားပြင်ဆိုင်ရှာဖွေရေး။ မူပိုင်ခွင့်အားလုံးရရှိထားပါသည်။' }
+    };
+
+    let currentLang = localStorage.getItem('languagePreference') || 'en';
+
+    // Initialize translate button text
+    document.getElementById('translateBtn').textContent = currentLang === 'en' ? 'MY' : 'EN';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'my' : 'en';
+
+      // Save preference to localStorage
+      localStorage.setItem('languagePreference', currentLang);
+
+      document.getElementById('translateBtn').textContent = currentLang === 'en' ? 'MY' : 'EN';
+      translatePage();
+    }
+
+    function translatePage() {
+      // Translate elements with data-translate attribute
+      document.querySelectorAll('[data-translate]').forEach(el => {
+        const key = el.dataset.translate;
+        if (translations[key]) {
+          el.textContent = translations[key][currentLang];
+        }
+      });
+
+      // Translate placeholders
+      document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+        const key = el.dataset.translatePlaceholder;
+        if (translations[key]) {
+          el.placeholder = translations[key][currentLang];
+        }
+      });
+
+      // Set font family
+      document.body.style.fontFamily = currentLang === 'my'
+        ? "'Noto Sans Myanmar', sans-serif"
+        : "system-ui, sans-serif";
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      translatePage();
+
+    });
+  </script>
+</body>
+
 </html>

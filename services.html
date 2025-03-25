@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Auto Workshop Services</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -24,6 +25,9 @@
               "3xl": "32px",
               full: "9999px",
               button: "8px",
+            },
+            fontFamily: {
+              myanmar: ['Noto Sans Myanmar', 'sans-serif']
             },
           },
         },
@@ -49,29 +53,18 @@
       <div class="max-w-7xl mx-auto px-4">
         <div class="flex justify-between h-16">
           <div class="flex items-center">
-            <span class="text-2xl font-['Pacifico'] text-primary">logo</span>
+            <span class="text-2xl font-['Pacifico'] text-primary" data-translate="logo">logo</span>
           </div>
           <div class="flex items-center space-x-8">
-            <a href="index.html" class="text-gray-700 hover:text-primary">Home</a>
-            <a
-              href="services.html"
-              data-readdy="true"
-              class="text-primary font-medium"
-              >Services</a
-            >
-            <a
-              href="book.html"
-              data-readdy="true"
-              class="text-gray-700 hover:text-primary"
-              >Book Now</a
-            >
-            <button
-              class="flex items-center space-x-2 text-gray-700 hover:text-primary"
-            >
-              <i
-                class="ri-user-line w-5 h-5 flex items-center justify-center"
-              ></i>
-              <span>Account</span>
+            <button id="translateBtn" class="px-3 py-1 border rounded-button text-sm hover:bg-gray-100" onclick="toggleLanguage()">
+              MY
+            </button>
+            <a href="index.html" class="text-gray-700 hover:text-primary" data-translate="home">Home</a>
+            <a href="services.html" class="text-primary font-medium" data-translate="services">Services</a>
+            <a href="book.html" class="text-gray-700 hover:text-primary" data-translate="book">Book Now</a>
+            <button class="flex items-center space-x-2 text-gray-700 hover:text-primary">
+              <i class="ri-user-line w-5 h-5 flex items-center justify-center"></i>
+              <span data-translate="account">Account</span>
             </button>
           </div>
         </div>
@@ -79,16 +72,16 @@
     </nav>
     <div class="max-w-7xl mx-auto px-4 py-8">
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4" data-translate="ourServices">
           Our Auto Repair Services
         </h1>
-        <p class="text-lg text-gray-600 mb-6">
-          Professional auto repair services to keep your vehicle running
-          smoothly
+        <p class="text-lg text-gray-600 mb-6" data-translate="servicesDescription">
+          Professional auto repair services to keep your vehicle running smoothly
         </p>
         <div class="relative max-w-2xl mx-auto">
           <input
             type="text"
+            data-translate-placeholder="searchServices"
             placeholder="Search services..."
             class="w-full px-4 py-3 pl-12 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
@@ -102,35 +95,41 @@
           <button
             class="px-6 py-2 text-primary bg-primary/10 rounded-full font-medium"
             onclick="filterServices('all')"
+            data-translate="allServices"
           >
             All Services
           </button>
           <button
             class="px-6 py-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full"
             onclick="filterServices('maintenance')"
+            data-translate="maintenance"
           >
             Maintenance
           </button>
           <button
             class="px-6 py-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full"
             onclick="filterServices('engine')"
+            data-translate="engine"
           >
             Engine
           </button>
           <button
             class="px-6 py-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full"
             onclick="filterServices('brake')"
+            data-translate="brake"
           >
             Brake
           </button>
           <button
             class="px-6 py-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full"
             onclick="filterServices('tire')"
+            data-translate="tire"
           >
             Tire
           </button>
         </div>
         <div class="grid grid-cols-3 gap-6" id="servicesGrid">
+          <!-- Oil Change Service -->
           <div
             class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
             data-category="maintenance"
@@ -141,30 +140,28 @@
               >
                 <i class="ri-oil-line text-primary text-2xl"></i>
               </div>
-              <h3 class="text-xl font-semibold mb-2">Oil Change Service</h3>
-              <p class="text-gray-600 mb-4">
-                Complete oil change with premium synthetic oil and filter
-                replacement.
+              <h3 class="text-xl font-semibold mb-2" data-translate="oilChangeService">Oil Change Service</h3>
+              <p class="text-gray-600 mb-4" data-translate="oilChangeDescription">
+                Complete oil change with premium synthetic oil and filter replacement.
               </p>
               <div class="flex items-center text-gray-600 mb-2">
-                <i
-                  class="ri-time-line w-5 h-5 flex items-center justify-center"
-                ></i>
-                <span class="ml-2">30-45 minutes</span>
+                <i class="ri-time-line w-5 h-5 flex items-center justify-center"></i>
+                <span class="ml-2" data-translate="duration30-45">30-45 minutes</span>
               </div>
               <div class="flex items-center text-gray-600 mb-4">
-                <i
-                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
-                ></i>
+                <i class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"></i>
                 <span class="ml-2">$39.99 - $69.99</span>
               </div>
               <button
                 class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+                data-translate="bookNow"
               >
                 Book Now
               </button>
             </div>
           </div>
+
+          <!-- Engine Diagnostic -->
           <div
             class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
             data-category="engine"
@@ -175,30 +172,28 @@
               >
                 <i class="ri-steering-2-line text-primary text-2xl"></i>
               </div>
-              <h3 class="text-xl font-semibold mb-2">Engine Diagnostic</h3>
-              <p class="text-gray-600 mb-4">
-                Comprehensive engine diagnostic with computer analysis and
-                expert review.
+              <h3 class="text-xl font-semibold mb-2" data-translate="engineDiagnostic">Engine Diagnostic</h3>
+              <p class="text-gray-600 mb-4" data-translate="engineDiagnosticDescription">
+                Comprehensive engine diagnostic with computer analysis and expert review.
               </p>
               <div class="flex items-center text-gray-600 mb-2">
-                <i
-                  class="ri-time-line w-5 h-5 flex items-center justify-center"
-                ></i>
-                <span class="ml-2">60-90 minutes</span>
+                <i class="ri-time-line w-5 h-5 flex items-center justify-center"></i>
+                <span class="ml-2" data-translate="duration60-90">60-90 minutes</span>
               </div>
               <div class="flex items-center text-gray-600 mb-4">
-                <i
-                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
-                ></i>
+                <i class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"></i>
                 <span class="ml-2">$89.99 - $129.99</span>
               </div>
               <button
                 class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+                data-translate="bookNow"
               >
                 Book Now
               </button>
             </div>
           </div>
+
+          <!-- Brake Service -->
           <div
             class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
             data-category="brake"
@@ -209,30 +204,28 @@
               >
                 <i class="ri-brake-line text-primary text-2xl"></i>
               </div>
-              <h3 class="text-xl font-semibold mb-2">Brake Service</h3>
-              <p class="text-gray-600 mb-4">
-                Complete brake inspection, pad replacement, and rotor
-                resurfacing.
+              <h3 class="text-xl font-semibold mb-2" data-translate="brakeService">Brake Service</h3>
+              <p class="text-gray-600 mb-4" data-translate="brakeServiceDescription">
+                Complete brake inspection, pad replacement, and rotor resurfacing.
               </p>
               <div class="flex items-center text-gray-600 mb-2">
-                <i
-                  class="ri-time-line w-5 h-5 flex items-center justify-center"
-                ></i>
-                <span class="ml-2">1-2 hours</span>
+                <i class="ri-time-line w-5 h-5 flex items-center justify-center"></i>
+                <span class="ml-2" data-translate="duration1-2hours">1-2 hours</span>
               </div>
               <div class="flex items-center text-gray-600 mb-4">
-                <i
-                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
-                ></i>
+                <i class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"></i>
                 <span class="ml-2">$149.99 - $299.99</span>
               </div>
               <button
                 class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+                data-translate="bookNow"
               >
                 Book Now
               </button>
             </div>
           </div>
+
+          <!-- Tire Rotation & Balance -->
           <div
             class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
             data-category="tire"
@@ -243,31 +236,28 @@
               >
                 <i class="ri-steering-line text-primary text-2xl"></i>
               </div>
-              <h3 class="text-xl font-semibold mb-2">
-                Tire Rotation & Balance
-              </h3>
-              <p class="text-gray-600 mb-4">
+              <h3 class="text-xl font-semibold mb-2" data-translate="tireRotation">Tire Rotation & Balance</h3>
+              <p class="text-gray-600 mb-4" data-translate="tireRotationDescription">
                 Professional tire rotation, balancing, and pressure adjustment.
               </p>
               <div class="flex items-center text-gray-600 mb-2">
-                <i
-                  class="ri-time-line w-5 h-5 flex items-center justify-center"
-                ></i>
-                <span class="ml-2">45-60 minutes</span>
+                <i class="ri-time-line w-5 h-5 flex items-center justify-center"></i>
+                <span class="ml-2" data-translate="duration45-60">45-60 minutes</span>
               </div>
               <div class="flex items-center text-gray-600 mb-4">
-                <i
-                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
-                ></i>
+                <i class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"></i>
                 <span class="ml-2">$49.99 - $79.99</span>
               </div>
               <button
                 class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+                data-translate="bookNow"
               >
                 Book Now
               </button>
             </div>
           </div>
+
+          <!-- Multi-Point Inspection -->
           <div
             class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
             data-category="maintenance"
@@ -278,29 +268,28 @@
               >
                 <i class="ri-settings-line text-primary text-2xl"></i>
               </div>
-              <h3 class="text-xl font-semibold mb-2">Multi-Point Inspection</h3>
-              <p class="text-gray-600 mb-4">
+              <h3 class="text-xl font-semibold mb-2" data-translate="multiPointInspection">Multi-Point Inspection</h3>
+              <p class="text-gray-600 mb-4" data-translate="multiPointInspectionDescription">
                 Comprehensive vehicle inspection covering all major systems.
               </p>
               <div class="flex items-center text-gray-600 mb-2">
-                <i
-                  class="ri-time-line w-5 h-5 flex items-center justify-center"
-                ></i>
-                <span class="ml-2">45-60 minutes</span>
+                <i class="ri-time-line w-5 h-5 flex items-center justify-center"></i>
+                <span class="ml-2" data-translate="duration45-60">45-60 minutes</span>
               </div>
               <div class="flex items-center text-gray-600 mb-4">
-                <i
-                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
-                ></i>
+                <i class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"></i>
                 <span class="ml-2">$59.99 - $89.99</span>
               </div>
               <button
                 class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+                data-translate="bookNow"
               >
                 Book Now
               </button>
             </div>
           </div>
+
+          <!-- Tune-Up Service -->
           <div
             class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
             data-category="engine"
@@ -311,25 +300,21 @@
               >
                 <i class="ri-dashboard-3-line text-primary text-2xl"></i>
               </div>
-              <h3 class="text-xl font-semibold mb-2">Tune-Up Service</h3>
-              <p class="text-gray-600 mb-4">
-                Complete engine tune-up including spark plugs and filter
-                replacement.
+              <h3 class="text-xl font-semibold mb-2" data-translate="tuneUpService">Tune-Up Service</h3>
+              <p class="text-gray-600 mb-4" data-translate="tuneUpServiceDescription">
+                Complete engine tune-up including spark plugs and filter replacement.
               </p>
               <div class="flex items-center text-gray-600 mb-2">
-                <i
-                  class="ri-time-line w-5 h-5 flex items-center justify-center"
-                ></i>
-                <span class="ml-2">2-3 hours</span>
+                <i class="ri-time-line w-5 h-5 flex items-center justify-center"></i>
+                <span class="ml-2" data-translate="duration2-3hours">2-3 hours</span>
               </div>
               <div class="flex items-center text-gray-600 mb-4">
-                <i
-                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
-                ></i>
+                <i class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"></i>
                 <span class="ml-2">$199.99 - $299.99</span>
               </div>
               <button
                 class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+                data-translate="bookNow"
               >
                 Book Now
               </button>
@@ -342,55 +327,172 @@
       <div class="max-w-7xl mx-auto px-4">
         <div class="grid grid-cols-4 gap-8">
           <div>
-            <h4 class="font-['Pacifico'] text-2xl mb-4">logo</h4>
-            <p class="text-gray-400">
+            <h4 class="font-['Pacifico'] text-2xl mb-4" data-translate="logo">logo</h4>
+            <p class="text-gray-400" data-translate="footerTagline">
               Your trusted partner for all auto repair needs
             </p>
           </div>
           <div>
-            <h4 class="font-semibold mb-4">Quick Links</h4>
+            <h4 class="font-semibold mb-4" data-translate="quickLinks">Quick Links</h4>
             <ul class="space-y-2 text-gray-400">
-              <li><a href="#" class="hover:text-white">About Us</a></li>
-              <li><a href="#" class="hover:text-white">Services</a></li>
-              <li><a href="#" class="hover:text-white">Locations</a></li>
-              <li><a href="#" class="hover:text-white">Contact</a></li>
+              <li><a href="#" class="hover:text-white" data-translate="aboutUs">About Us</a></li>
+              <li><a href="#" class="hover:text-white" data-translate="services">Services</a></li>
+              <li><a href="#" class="hover:text-white" data-translate="locations">Locations</a></li>
+              <li><a href="#" class="hover:text-white" data-translate="contact">Contact</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="font-semibold mb-4">Services</h4>
+            <h4 class="font-semibold mb-4" data-translate="services">Services</h4>
             <ul class="space-y-2 text-gray-400">
-              <li><a href="#" class="hover:text-white">Oil Change</a></li>
-              <li><a href="#" class="hover:text-white">Brake Service</a></li>
-              <li><a href="#" class="hover:text-white">Tire Rotation</a></li>
-              <li><a href="#" class="hover:text-white">Engine Repair</a></li>
+              <li><a href="#" class="hover:text-white" data-translate="oilChange">Oil Change</a></li>
+              <li><a href="#" class="hover:text-white" data-translate="brakeService">Brake Service</a></li>
+              <li><a href="#" class="hover:text-white" data-translate="tireRotation">Tire Rotation</a></li>
+              <li><a href="#" class="hover:text-white" data-translate="engineRepair">Engine Repair</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="font-semibold mb-4">Contact Us</h4>
+            <h4 class="font-semibold mb-4" data-translate="contactUs">Contact Us</h4>
             <ul class="space-y-2 text-gray-400">
               <li class="flex items-center">
-                <i
-                  class="ri-phone-line w-5 h-5 flex items-center justify-center mr-2"
-                ></i>
+                <i class="ri-phone-line w-5 h-5 flex items-center justify-center mr-2"></i>
                 1-800-AUTO-HELP
               </li>
               <li class="flex items-center">
-                <i
-                  class="ri-mail-line w-5 h-5 flex items-center justify-center mr-2"
-                ></i>
+                <i class="ri-mail-line w-5 h-5 flex items-center justify-center mr-2"></i>
                 support@autoworkshop.com
               </li>
             </ul>
           </div>
         </div>
-        <div
-          class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"
-        >
-          <p>&copy; 2025 Auto Workshop Finder. All rights reserved.</p>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <p data-translate="copyright">&copy; 2025 Auto Workshop Finder. All rights reserved.</p>
         </div>
       </div>
     </footer>
     <script>
+      // Complete translations
+      const translations = {
+        // Navigation
+        'logo': { en: 'logo', my: 'လိုဂို' },
+        'home': { en: 'Home', my: 'ပင်မ' },
+        'services': { en: 'Services', my: 'ဝန်ဆောင်မှုများ' },
+        'book': { en: 'Book Now', my: 'စာရင်းသွင်းရန်' },
+        'account': { en: 'Account', my: 'အကောင့်' },
+        
+        // Main content
+        'ourServices': { en: 'Our Auto Repair Services', my: 'ကျွန်ုပ်တို့၏ ကားပြင်ဆိုင်ဝန်ဆောင်မှုများ' },
+        'servicesDescription': { 
+          en: 'Professional auto repair services to keep your vehicle running smoothly',
+          my: 'သင့်ယာဉ်ကို ချောမွေ့စွာမောင်းနှင်နိုင်စေရန် ကျွမ်းကျင်သော ကားပြင်ဆိုင်ဝန်ဆောင်မှုများ'
+        },
+        'searchServices': { en: 'Search services...', my: 'ဝန်ဆောင်မှုများရှာရန်...' },
+        
+        // Categories
+        'allServices': { en: 'All Services', my: 'ဝန်ဆောင်မှုအားလုံး' },
+        'maintenance': { en: 'Maintenance', my: 'ထိန်းသိမ်းမှု' },
+        'engine': { en: 'Engine', my: 'အင်ဂျင်' },
+        'brake': { en: 'Brake', my: 'ဘရိတ်' },
+        'tire': { en: 'Tire', my: 'တာယာ' },
+        
+        // Service cards
+        'oilChangeService': { en: 'Oil Change Service', my: 'ဆီအပြောင်းအလဲဝန်ဆောင်မှု' },
+        'oilChangeDescription': { 
+          en: 'Complete oil change with premium synthetic oil and filter replacement',
+          my: 'အရည်အသွေးမြင့်ဆီနှင့် ဖီလ်တာအစားထိုးခြင်း'
+        },
+        'engineDiagnostic': { en: 'Engine Diagnostic', my: 'အင်ဂျင်စစ်ဆေးမှု' },
+        'engineDiagnosticDescription': {
+          en: 'Comprehensive engine diagnostic with computer analysis and expert review',
+          my: 'ကွန်ပျူတာဖြင့် အင်ဂျင်အပြည့်အစုံစစ်ဆေးခြင်းနှင့် ကျွမ်းကျင်သူများ၏ သုံးသပ်ချက်'
+        },
+        'brakeService': { en: 'Brake Service', my: 'ဘရိတ်ပြင်ဆင်မှု' },
+        'brakeServiceDescription': {
+          en: 'Complete brake inspection, pad replacement, and rotor resurfacing',
+          my: 'ဘရိတ်စစ်ဆေးခြင်း၊ ဘရိတ်ပဒ်အစားထိုးခြင်းနှင့် ရိုတာအပေါ်ယံပြန်လည်ပြုပြင်ခြင်း'
+        },
+        'tireRotation': { en: 'Tire Rotation & Balance', my: 'တာယာလှည့်ပတ်မှုနှင့် ညှိခြင်း' },
+        'tireRotationDescription': {
+          en: 'Professional tire rotation, balancing, and pressure adjustment',
+          my: 'ကျွမ်းကျင်သူများမှ တာယာလှည့်ပတ်ခြင်း၊ ညှိခြင်းနှင့် လေဖိအားညှိခြင်း'
+        },
+        'multiPointInspection': { en: 'Multi-Point Inspection', my: 'အမျိုးမျိုးသော စစ်ဆေးမှု' },
+        'multiPointInspectionDescription': {
+          en: 'Comprehensive vehicle inspection covering all major systems',
+          my: 'ယာဉ်၏ အဓိကစနစ်အားလုံးကို စစ်ဆေးခြင်း'
+        },
+        'tuneUpService': { en: 'Tune-Up Service', my: 'အင်ဂျင်ညှိဝန်ဆောင်မှု' },
+        'tuneUpServiceDescription': {
+          en: 'Complete engine tune-up including spark plugs and filter replacement',
+          my: 'အင်ဂျင်ညှိခြင်းနှင့် မီးပွားခလုတ်များ၊ ဖီလ်တာအစားထိုးခြင်း'
+        },
+        
+        // Durations
+        'duration30-45': { en: '30-45 minutes', my: '၃၀-၄၅ မိနစ်' },
+        'duration60-90': { en: '60-90 minutes', my: '၆၀-၉၀ မိနစ်' },
+        'duration1-2hours': { en: '1-2 hours', my: '၁-၂ နာရီ' },
+        'duration45-60': { en: '45-60 minutes', my: '၄၅-၆၀ မိနစ်' },
+        'duration2-3hours': { en: '2-3 hours', my: '၂-၃ နာရီ' },
+        
+        // Buttons
+        'bookNow': { en: 'Book Now', my: 'စာရင်းသွင်းရန်' },
+        
+        // Footer
+        'footerTagline': { 
+          en: 'Your trusted partner for all auto repair needs',
+          my: 'ကားပြင်ဆိုင်လိုအပ်ချက်အားလုံးအတွက် ယုံကြည်စိတ်ချရသော မိတ်ဖက်'
+        },
+        'quickLinks': { en: 'Quick Links', my: 'အမြန်လင့်ခ်များ' },
+        'aboutUs': { en: 'About Us', my: 'ကျွန်ုပ်တို့အကြောင်း' },
+        'locations': { en: 'Locations', my: 'တည်နေရာများ' },
+        'oilChange': { en: 'Oil Change', my: 'ဆီအပြောင်းအလဲ' },
+        'engineRepair': { en: 'Engine Repair', my: 'အင်ဂျင်ပြင်ဆင်မှု' },
+        'contactUs': { en: 'Contact Us', my: 'ဆက်သွယ်ရန်' },
+        'copyright': { 
+          en: '© 2025 Auto Workshop Finder. All rights reserved.',
+          my: 'မူပိုင်ခွင့် © ၂၀၂၅ ကားပြင်ဆိုင်ရှာဖွေရေး။ မူပိုင်ခွင့်အားလုံးရရှိထားပါသည်။'
+        }
+      };
+
+      // Load language preference from localStorage or default to English
+      let currentLang = localStorage.getItem('languagePreference') || 'en';
+
+      // Initialize translate button text
+      document.getElementById('translateBtn').textContent = currentLang === 'en' ? 'MY' : 'EN';
+
+      function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'my' : 'en';
+        
+        // Save preference to localStorage
+        localStorage.setItem('languagePreference', currentLang);
+        
+        document.getElementById('translateBtn').textContent = currentLang === 'en' ? 'MY' : 'EN';
+        translatePage();
+      }
+
+      function translatePage() {
+        // Translate elements with data-translate attribute
+        document.querySelectorAll('[data-translate]').forEach(el => {
+          const key = el.dataset.translate;
+          if(translations[key]) {
+            el.textContent = translations[key][currentLang];
+          }
+        });
+
+        // Translate placeholders
+        document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+          const key = el.dataset.translatePlaceholder;
+          if(translations[key]) {
+            el.placeholder = translations[key][currentLang];
+          }
+        });
+
+        // Set font family
+        document.body.style.fontFamily = currentLang === 'my' 
+          ? "'Noto Sans Myanmar', sans-serif" 
+          : "system-ui, sans-serif";
+      }
+
+      // Filter services function
       function filterServices(category) {
         const tabs = document.querySelectorAll("#categoryTabs button");
         tabs.forEach((tab) => {
@@ -408,21 +510,26 @@
           }
         });
       }
-      document
-        .querySelector('input[type="text"]')
-        .addEventListener("input", function (e) {
-          const searchText = e.target.value.toLowerCase();
-          const cards = document.querySelectorAll(".service-card");
-          cards.forEach((card) => {
-            const title = card.querySelector("h3").textContent.toLowerCase();
-            const description = card.querySelector("p").textContent.toLowerCase();
-            if (title.includes(searchText) || description.includes(searchText)) {
-              card.style.display = "block";
-            } else {
-              card.style.display = "none";
-            }
-          });
+
+      // Search functionality
+      document.querySelector('input[type="text"]').addEventListener("input", function (e) {
+        const searchText = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll(".service-card");
+        cards.forEach((card) => {
+          const title = card.querySelector("h3").textContent.toLowerCase();
+          const description = card.querySelector("p").textContent.toLowerCase();
+          if (title.includes(searchText) || description.includes(searchText)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
         });
+      });
+
+      // Initialize the page with translations
+      window.addEventListener('DOMContentLoaded', () => {
+        translatePage();
+      });
     </script>
   </body>
 </html>
