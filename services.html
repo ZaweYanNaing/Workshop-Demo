@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Workshop Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0EA5E9",
+              secondary: "#64748B",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      .service-card:hover { transform: translateY(-4px); }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <nav class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <span class="text-2xl font-['Pacifico'] text-primary">logo</span>
+          </div>
+          <div class="flex items-center space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-primary">Home</a>
+            <a
+              href="services.html"
+              data-readdy="true"
+              class="text-primary font-medium"
+              >Services</a
+            >
+            <a
+              href="book.html"
+              data-readdy="true"
+              class="text-gray-700 hover:text-primary"
+              >Book Now</a
+            >
+            <button
+              class="flex items-center space-x-2 text-gray-700 hover:text-primary"
+            >
+              <i
+                class="ri-user-line w-5 h-5 flex items-center justify-center"
+              ></i>
+              <span>Account</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">
+          Our Auto Repair Services
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
+          Professional auto repair services to keep your vehicle running
+          smoothly
+        </p>
+        <div class="relative max-w-2xl mx-auto">
+          <input
+            type="text"
+            placeholder="Search services..."
+            class="w-full px-4 py-3 pl-12 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary/20"
+          />
+          <i
+            class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 flex items-center justify-center"
+          ></i>
+        </div>
+      </div>
+      <div class="mb-8">
+        <div class="flex justify-center space-x-4 mb-8" id="categoryTabs">
+          <button
+            class="px-6 py-2 text-primary bg-primary/10 rounded-full font-medium"
+            onclick="filterServices('all')"
+          >
+            All Services
+          </button>
+          <button
+            class="px-6 py-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full"
+            onclick="filterServices('maintenance')"
+          >
+            Maintenance
+          </button>
+          <button
+            class="px-6 py-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full"
+            onclick="filterServices('engine')"
+          >
+            Engine
+          </button>
+          <button
+            class="px-6 py-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full"
+            onclick="filterServices('brake')"
+          >
+            Brake
+          </button>
+          <button
+            class="px-6 py-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full"
+            onclick="filterServices('tire')"
+          >
+            Tire
+          </button>
+        </div>
+        <div class="grid grid-cols-3 gap-6" id="servicesGrid">
+          <div
+            class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
+            data-category="maintenance"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <i class="ri-oil-line text-primary text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Oil Change Service</h3>
+              <p class="text-gray-600 mb-4">
+                Complete oil change with premium synthetic oil and filter
+                replacement.
+              </p>
+              <div class="flex items-center text-gray-600 mb-2">
+                <i
+                  class="ri-time-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">30-45 minutes</span>
+              </div>
+              <div class="flex items-center text-gray-600 mb-4">
+                <i
+                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">$39.99 - $69.99</span>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
+            data-category="engine"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <i class="ri-steering-2-line text-primary text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Engine Diagnostic</h3>
+              <p class="text-gray-600 mb-4">
+                Comprehensive engine diagnostic with computer analysis and
+                expert review.
+              </p>
+              <div class="flex items-center text-gray-600 mb-2">
+                <i
+                  class="ri-time-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">60-90 minutes</span>
+              </div>
+              <div class="flex items-center text-gray-600 mb-4">
+                <i
+                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">$89.99 - $129.99</span>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
+            data-category="brake"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <i class="ri-brake-line text-primary text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Brake Service</h3>
+              <p class="text-gray-600 mb-4">
+                Complete brake inspection, pad replacement, and rotor
+                resurfacing.
+              </p>
+              <div class="flex items-center text-gray-600 mb-2">
+                <i
+                  class="ri-time-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">1-2 hours</span>
+              </div>
+              <div class="flex items-center text-gray-600 mb-4">
+                <i
+                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">$149.99 - $299.99</span>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
+            data-category="tire"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <i class="ri-steering-line text-primary text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">
+                Tire Rotation & Balance
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Professional tire rotation, balancing, and pressure adjustment.
+              </p>
+              <div class="flex items-center text-gray-600 mb-2">
+                <i
+                  class="ri-time-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">45-60 minutes</span>
+              </div>
+              <div class="flex items-center text-gray-600 mb-4">
+                <i
+                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">$49.99 - $79.99</span>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
+            data-category="maintenance"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <i class="ri-settings-line text-primary text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Multi-Point Inspection</h3>
+              <p class="text-gray-600 mb-4">
+                Comprehensive vehicle inspection covering all major systems.
+              </p>
+              <div class="flex items-center text-gray-600 mb-2">
+                <i
+                  class="ri-time-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">45-60 minutes</span>
+              </div>
+              <div class="flex items-center text-gray-600 mb-4">
+                <i
+                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">$59.99 - $89.99</span>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 service-card"
+            data-category="engine"
+          >
+            <div class="p-6">
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <i class="ri-dashboard-3-line text-primary text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Tune-Up Service</h3>
+              <p class="text-gray-600 mb-4">
+                Complete engine tune-up including spark plugs and filter
+                replacement.
+              </p>
+              <div class="flex items-center text-gray-600 mb-2">
+                <i
+                  class="ri-time-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">2-3 hours</span>
+              </div>
+              <div class="flex items-center text-gray-600 mb-4">
+                <i
+                  class="ri-money-dollar-circle-line w-5 h-5 flex items-center justify-center"
+                ></i>
+                <span class="ml-2">$199.99 - $299.99</span>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-4 gap-8">
+          <div>
+            <h4 class="font-['Pacifico'] text-2xl mb-4">logo</h4>
+            <p class="text-gray-400">
+              Your trusted partner for all auto repair needs
+            </p>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="hover:text-white">About Us</a></li>
+              <li><a href="#" class="hover:text-white">Services</a></li>
+              <li><a href="#" class="hover:text-white">Locations</a></li>
+              <li><a href="#" class="hover:text-white">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">Services</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li><a href="#" class="hover:text-white">Oil Change</a></li>
+              <li><a href="#" class="hover:text-white">Brake Service</a></li>
+              <li><a href="#" class="hover:text-white">Tire Rotation</a></li>
+              <li><a href="#" class="hover:text-white">Engine Repair</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">Contact Us</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li class="flex items-center">
+                <i
+                  class="ri-phone-line w-5 h-5 flex items-center justify-center mr-2"
+                ></i>
+                1-800-AUTO-HELP
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="ri-mail-line w-5 h-5 flex items-center justify-center mr-2"
+                ></i>
+                support@autoworkshop.com
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"
+        >
+          <p>&copy; 2025 Auto Workshop Finder. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      function filterServices(category) {
+        const tabs = document.querySelectorAll("#categoryTabs button");
+        tabs.forEach((tab) => {
+          tab.classList.remove("text-primary", "bg-primary/10");
+          tab.classList.add("text-gray-600");
+        });
+        event.target.classList.remove("text-gray-600");
+        event.target.classList.add("text-primary", "bg-primary/10");
+        const cards = document.querySelectorAll(".service-card");
+        cards.forEach((card) => {
+          if (category === "all" || card.dataset.category === category) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+      document
+        .querySelector('input[type="text"]')
+        .addEventListener("input", function (e) {
+          const searchText = e.target.value.toLowerCase();
+          const cards = document.querySelectorAll(".service-card");
+          cards.forEach((card) => {
+            const title = card.querySelector("h3").textContent.toLowerCase();
+            const description = card.querySelector("p").textContent.toLowerCase();
+            if (title.includes(searchText) || description.includes(searchText)) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+    </script>
+  </body>
+</html>

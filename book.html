@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Auto Service Appointment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0EA5E9",
+              secondary: "#64748B",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      .step-content {
+        display: none;
+      }
+      .step-content.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <nav class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <a
+              href="https://readdy.ai/home/52866422-7da2-4249-8b37-01ecac9badc8/facc9f16-2605-4608-a8da-e726a5f167a2"
+              data-readdy="true"
+              class="text-2xl font-['Pacifico'] text-primary"
+              >logo</a
+            >
+          </div>
+          <div class="flex items-center space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-primary">Home</a>
+            <a href="services.html" class="text-gray-700 hover:text-primary">Services</a>
+            <a href="book.html" class="text-primary font-medium">Book Now</a>
+            <button
+              class="flex items-center space-x-2 text-gray-700 hover:text-primary cursor-pointer"
+            >
+              <i
+                class="ri-user-line w-5 h-5 flex items-center justify-center"
+              ></i>
+              <span>Account</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-8">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 text-center">
+          Book Your Service Appointment
+        </h1>
+        <p class="text-gray-600 text-center mt-2">
+          Complete the following steps to schedule your vehicle service
+        </p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+        <div class="flex justify-between items-center mb-8">
+          <div class="flex-1 flex items-center">
+            <div
+              class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold"
+            >
+              1
+            </div>
+            <div class="ml-4 flex-1 h-1 bg-gray-200 relative">
+              <div
+                class="absolute left-0 top-0 h-full bg-primary transition-all"
+                id="progress-bar"
+                style="width: 20%"
+              ></div>
+            </div>
+          </div>
+          <div class="flex-1 flex items-center">
+            <div
+              class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center font-semibold"
+            >
+              2
+            </div>
+            <div class="ml-4 flex-1 h-1 bg-gray-200"></div>
+          </div>
+          <div class="flex-1 flex items-center">
+            <div
+              class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center font-semibold"
+            >
+              3
+            </div>
+            <div class="ml-4 flex-1 h-1 bg-gray-200"></div>
+          </div>
+          <div class="flex-1 flex items-center">
+            <div
+              class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center font-semibold"
+            >
+              4
+            </div>
+            <div class="ml-4 flex-1 h-1 bg-gray-200"></div>
+          </div>
+          <div
+            class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center font-semibold"
+          >
+            5
+          </div>
+        </div>
+
+        <div class="step-content active" id="step1">
+          <h2 class="text-xl font-semibold mb-6">Vehicle Information</h2>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Vehicle Make</label
+              >
+              <div class="relative">
+                <button
+                  class="w-full px-4 py-2 bg-white border rounded-button text-left flex items-center justify-between cursor-pointer"
+                  onclick="toggleDropdown('makeDropdown')"
+                >
+                  <span id="selectedMake">Select Make</span>
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div
+                  id="makeDropdown"
+                  class="hidden absolute w-full mt-1 bg-white border rounded-lg shadow-lg z-10"
+                >
+                  <div class="p-2">
+                    <div
+                      class="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                      onclick="selectMake('Toyota')"
+                    >
+                      Toyota
+                    </div>
+                    <div
+                      class="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                      onclick="selectMake('Honda')"
+                    >
+                      Honda
+                    </div>
+                    <div
+                      class="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                      onclick="selectMake('Ford')"
+                    >
+                      Ford
+                    </div>
+                    <div
+                      class="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                      onclick="selectMake('BMW')"
+                    >
+                      BMW
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Vehicle Model</label
+              >
+              <div class="relative">
+                <button
+                  class="w-full px-4 py-2 bg-white border rounded-button text-left flex items-center justify-between cursor-pointer"
+                  onclick="toggleDropdown('modelDropdown')"
+                >
+                  <span id="selectedModel">Select Model</span>
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div
+                  id="modelDropdown"
+                  class="hidden absolute w-full mt-1 bg-white border rounded-lg shadow-lg z-10"
+                >
+                  <div class="p-2" id="modelOptions">
+                    <div class="text-gray-500 p-2">
+                      Please select a make first
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Year</label
+              >
+              <div class="relative">
+                <button
+                  class="w-full px-4 py-2 bg-white border rounded-button text-left flex items-center justify-between cursor-pointer"
+                  onclick="toggleDropdown('yearDropdown')"
+                >
+                  <span id="selectedYear">Select Year</span>
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div
+                  id="yearDropdown"
+                  class="hidden absolute w-full mt-1 bg-white border rounded-lg shadow-lg z-10"
+                >
+                  <div class="p-2">
+                    <div
+                      class="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                      onclick="selectYear('2025')"
+                    >
+                      2025
+                    </div>
+                    <div
+                      class="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                      onclick="selectYear('2024')"
+                    >
+                      2024
+                    </div>
+                    <div
+                      class="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                      onclick="selectYear('2023')"
+                    >
+                      2023
+                    </div>
+                    <div
+                      class="cursor-pointer p-2 hover:bg-gray-100 rounded"
+                      onclick="selectYear('2022')"
+                    >
+                      2022
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Current Mileage</label
+              >
+              <input
+                type="text"
+                class="w-full px-4 py-2 border rounded-button"
+                placeholder="Enter mileage"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="step-content" id="step2">
+          <h2 class="text-xl font-semibold mb-6">Select Services</h2>
+          <div class="grid grid-cols-2 gap-6">
+            <div
+              class="border rounded-lg p-4 cursor-pointer hover:border-primary"
+              onclick="toggleService(this)"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div
+                  class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="ri-oil-line text-primary text-2xl"></i>
+                </div>
+                <div
+                  class="w-6 h-6 border-2 rounded-full flex items-center justify-center service-checkbox"
+                >
+                  <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Oil Change Service</h3>
+              <p class="text-gray-600 text-sm mb-4">
+                Complete oil change with premium synthetic oil and filter
+                replacement
+              </p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600">30-45 minutes</span>
+                <span class="font-semibold">$49.99</span>
+              </div>
+            </div>
+
+            <div
+              class="border rounded-lg p-4 cursor-pointer hover:border-primary"
+              onclick="toggleService(this)"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div
+                  class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="ri-brake-line text-primary text-2xl"></i>
+                </div>
+                <div
+                  class="w-6 h-6 border-2 rounded-full flex items-center justify-center service-checkbox"
+                >
+                  <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Brake Service</h3>
+              <p class="text-gray-600 text-sm mb-4">
+                Complete brake inspection, pad replacement, and rotor
+                resurfacing
+              </p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600">1-2 hours</span>
+                <span class="font-semibold">$149.99</span>
+              </div>
+            </div>
+
+            <div
+              class="border rounded-lg p-4 cursor-pointer hover:border-primary"
+              onclick="toggleService(this)"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div
+                  class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="ri-steering-line text-primary text-2xl"></i>
+                </div>
+                <div
+                  class="w-6 h-6 border-2 rounded-full flex items-center justify-center service-checkbox"
+                >
+                  <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Tire Rotation</h3>
+              <p class="text-gray-600 text-sm mb-4">
+                Professional tire rotation, balancing, and pressure adjustment
+              </p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600">45-60 minutes</span>
+                <span class="font-semibold">$59.99</span>
+              </div>
+            </div>
+
+            <div
+              class="border rounded-lg p-4 cursor-pointer hover:border-primary"
+              onclick="toggleService(this)"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div
+                  class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="ri-dashboard-3-line text-primary text-2xl"></i>
+                </div>
+                <div
+                  class="w-6 h-6 border-2 rounded-full flex items-center justify-center service-checkbox"
+                >
+                  <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Engine Diagnostic</h3>
+              <p class="text-gray-600 text-sm mb-4">
+                Comprehensive engine diagnostic with computer analysis
+              </p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600">60-90 minutes</span>
+                <span class="font-semibold">$89.99</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-content" id="step3">
+          <h2 class="text-xl font-semibold mb-6">Select Date & Time</h2>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Preferred Date</label
+              >
+              <div class="bg-white border rounded-lg p-4">
+                <div class="grid grid-cols-7 gap-2 text-center mb-4">
+                  <div class="text-gray-400 text-sm">Sun</div>
+                  <div class="text-gray-400 text-sm">Mon</div>
+                  <div class="text-gray-400 text-sm">Tue</div>
+                  <div class="text-gray-400 text-sm">Wed</div>
+                  <div class="text-gray-400 text-sm">Thu</div>
+                  <div class="text-gray-400 text-sm">Fri</div>
+                  <div class="text-gray-400 text-sm">Sat</div>
+                </div>
+                <div class="grid grid-cols-7 gap-2 text-center">
+                  <div class="text-gray-400">24</div>
+                  <div
+                    class="text-gray-900 cursor-pointer hover:bg-primary/10 rounded p-2"
+                    onclick="selectDate('25')"
+                  >
+                    25
+                  </div>
+                  <div
+                    class="text-gray-900 cursor-pointer hover:bg-primary/10 rounded p-2"
+                    onclick="selectDate('26')"
+                  >
+                    26
+                  </div>
+                  <div
+                    class="text-gray-900 cursor-pointer hover:bg-primary/10 rounded p-2"
+                    onclick="selectDate('27')"
+                  >
+                    27
+                  </div>
+                  <div
+                    class="text-gray-900 cursor-pointer hover:bg-primary/10 rounded p-2"
+                    onclick="selectDate('28')"
+                  >
+                    28
+                  </div>
+                  <div
+                    class="text-gray-900 cursor-pointer hover:bg-primary/10 rounded p-2"
+                    onclick="selectDate('29')"
+                  >
+                    29
+                  </div>
+                  <div
+                    class="text-gray-900 cursor-pointer hover:bg-primary/10 rounded p-2"
+                    onclick="selectDate('30')"
+                  >
+                    30
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Available Time Slots</label
+              >
+              <div class="grid grid-cols-2 gap-4">
+                <button
+                  class="px-4 py-2 border rounded-button text-gray-700 hover:border-primary hover:text-primary cursor-pointer"
+                  onclick="selectTime('9:00 AM')"
+                >
+                  9:00 AM
+                </button>
+                <button
+                  class="px-4 py-2 border rounded-button text-gray-700 hover:border-primary hover:text-primary cursor-pointer"
+                  onclick="selectTime('10:00 AM')"
+                >
+                  10:00 AM
+                </button>
+                <button
+                  class="px-4 py-2 border rounded-button text-gray-700 hover:border-primary hover:text-primary cursor-pointer"
+                  onclick="selectTime('11:00 AM')"
+                >
+                  11:00 AM
+                </button>
+                <button
+                  class="px-4 py-2 border rounded-button text-gray-700 hover:border-primary hover:text-primary cursor-pointer"
+                  onclick="selectTime('1:00 PM')"
+                >
+                  1:00 PM
+                </button>
+                <button
+                  class="px-4 py-2 border rounded-button text-gray-700 hover:border-primary hover:text-primary cursor-pointer"
+                  onclick="selectTime('2:00 PM')"
+                >
+                  2:00 PM
+                </button>
+                <button
+                  class="px-4 py-2 border rounded-button text-gray-700 hover:border-primary hover:text-primary cursor-pointer"
+                  onclick="selectTime('3:00 PM')"
+                >
+                  3:00 PM
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-content" id="step4">
+          <h2 class="text-xl font-semibold mb-6">Contact Information</h2>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Full Name</label
+              >
+              <input
+                type="text"
+                class="w-full px-4 py-2 border rounded-button"
+                placeholder="Enter your full name"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Email Address</label
+              >
+              <input
+                type="email"
+                class="w-full px-4 py-2 border rounded-button"
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Phone Number</label
+              >
+              <input
+                type="tel"
+                class="w-full px-4 py-2 border rounded-button"
+                placeholder="Enter your phone number"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Special Instructions</label
+              >
+              <textarea
+                class="w-full px-4 py-2 border rounded-button"
+                rows="4"
+                placeholder="Any additional notes or requests"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-content" id="step5">
+          <h2 class="text-xl font-semibold mb-6">Review & Confirm</h2>
+          <div class="bg-gray-50 rounded-lg p-6 mb-6">
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <h3 class="font-medium text-gray-700 mb-2">
+                  Vehicle Information
+                </h3>
+                <p class="text-gray-600" id="reviewVehicle">
+                  Toyota Camry (2024)
+                </p>
+                <p class="text-gray-600" id="reviewMileage">Mileage: 25,000</p>
+              </div>
+
+              <div>
+                <h3 class="font-medium text-gray-700 mb-2">
+                  Selected Services
+                </h3>
+                <div id="reviewServices" class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-gray-600">Oil Change Service</span>
+                    <span class="font-medium">$49.99</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-gray-600">Brake Service</span>
+                    <span class="font-medium">$149.99</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-medium text-gray-700 mb-2">Appointment Time</h3>
+                <p class="text-gray-600" id="reviewDateTime">
+                  March 25, 2025 at 10:00 AM
+                </p>
+              </div>
+
+              <div>
+                <h3 class="font-medium text-gray-700 mb-2">
+                  Contact Information
+                </h3>
+                <p class="text-gray-600" id="reviewContact">John Anderson</p>
+                <p class="text-gray-600">john.anderson@email.com</p>
+                <p class="text-gray-600">(555) 123-4567</p>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t">
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-medium">Total Amount:</span>
+                <span class="text-xl font-semibold text-primary">$199.98</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start mb-6">
+            <input type="checkbox" class="mt-1" id="terms" />
+            <label for="terms" class="ml-2 text-sm text-gray-600"
+              >I agree to the terms and conditions and understand that my
+              appointment is subject to confirmation.</label
+            >
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-8">
+          <button
+            class="px-6 py-2 border rounded-button text-gray-700 hover:bg-gray-50"
+            onclick="prevStep()"
+            id="prevButton"
+          >
+            Previous
+          </button>
+          <button
+            class="px-6 py-2 bg-primary text-white rounded-button hover:bg-primary/90"
+            onclick="nextStep()"
+            id="nextButton"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentStep = 1;
+      const totalSteps = 5;
+
+      function toggleDropdown(id) {
+        const dropdown = document.getElementById(id);
+        const allDropdowns = document.querySelectorAll('[id$="Dropdown"]');
+        allDropdowns.forEach((d) => {
+          if (d.id !== id) d.classList.add("hidden");
+        });
+        dropdown.classList.toggle("hidden");
+      }
+
+      function selectMake(make) {
+        document.getElementById("selectedMake").textContent = make;
+        document.getElementById("makeDropdown").classList.add("hidden");
+
+        const modelOptions = document.getElementById("modelOptions");
+        modelOptions.innerHTML = "";
+
+        const models = {
+          Toyota: ["Camry", "Corolla", "RAV4", "Highlander"],
+          Honda: ["Civic", "Accord", "CR-V", "Pilot"],
+          Ford: ["F-150", "Escape", "Explorer", "Mustang"],
+          BMW: ["3 Series", "5 Series", "X3", "X5"],
+        };
+
+        models[make].forEach((model) => {
+          const div = document.createElement("div");
+          div.className = "cursor-pointer p-2 hover:bg-gray-100 rounded";
+          div.onclick = () => selectModel(model);
+          div.textContent = model;
+          modelOptions.appendChild(div);
+        });
+      }
+
+      function selectModel(model) {
+        document.getElementById("selectedModel").textContent = model;
+        document.getElementById("modelDropdown").classList.add("hidden");
+      }
+
+      function selectYear(year) {
+        document.getElementById("selectedYear").textContent = year;
+        document.getElementById("yearDropdown").classList.add("hidden");
+      }
+
+      function toggleService(element) {
+        const checkbox = element.querySelector(".service-checkbox div");
+        checkbox.classList.toggle("hidden");
+        element.classList.toggle("border-primary");
+      }
+
+      function selectDate(date) {
+        const allDates = document.querySelectorAll(".grid-cols-7 div");
+        allDates.forEach((d) => d.classList.remove("bg-primary", "text-white"));
+        event.target.classList.add("bg-primary", "text-white");
+      }
+
+      function selectTime(time) {
+        const allTimes = document.querySelectorAll(".grid-cols-2 button");
+        allTimes.forEach((t) => {
+          t.classList.remove("border-primary", "text-primary");
+          t.classList.add("text-gray-700");
+        });
+        event.target.classList.remove("text-gray-700");
+        event.target.classList.add("border-primary", "text-primary");
+      }
+
+      function showStep(step) {
+        document.querySelectorAll(".step-content").forEach((content) => {
+          content.classList.remove("active");
+        });
+        document.getElementById(`step${step}`).classList.add("active");
+
+        document.getElementById("progress-bar").style.width =
+          `${(step / totalSteps) * 100}%`;
+
+        const prevButton = document.getElementById("prevButton");
+        const nextButton = document.getElementById("nextButton");
+
+        prevButton.style.display = step === 1 ? "none" : "block";
+        nextButton.textContent = step === totalSteps ? "Confirm Booking" : "Next";
+      }
+
+      function nextStep() {
+        if (currentStep < totalSteps) {
+          currentStep++;
+          showStep(currentStep);
+        } else {
+          const terms = document.getElementById("terms");
+          if (!terms.checked) {
+            alert("Please agree to the terms and conditions");
+            return;
+          }
+          window.location.href =
+            "https://readdy.ai/home/52866422-7da2-4249-8b37-01ecac9badc8/facc9f16-2605-4608-a8da-e726a5f167a2";
+        }
+      }
+
+      function prevStep() {
+        if (currentStep > 1) {
+          currentStep--;
+          showStep(currentStep);
+        }
+      }
+
+      document.addEventListener("click", function (event) {
+        if (
+          !event.target.closest('[id$="Dropdown"]') &&
+          !event.target.closest("button")
+        ) {
+          document.querySelectorAll('[id$="Dropdown"]').forEach((dropdown) => {
+            dropdown.classList.add("hidden");
+          });
+        }
+      });
+
+      showStep(1);
+    </script>
+  </body>
+</html>
