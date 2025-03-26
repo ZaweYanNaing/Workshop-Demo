@@ -38,7 +38,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <style>
     :where([class^="ri-"])::before {
       content: "\f3c2";
@@ -49,11 +48,43 @@
       background-position: center;
       background-size: cover;
     }
+
+    @keyframes progress {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .animate-progress {
+      animation: progress 3s linear forwards;
+    }
+
+    /* Hide desktop nav on mobile */
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+    }
+
+    /* Show mobile nav on mobile */
+    @media (min-width: 769px) {
+      .mobile-nav {
+        display: none;
+      }
+    }
+
+    .step-content {
+      display: none;
+    }
+
+    .step-content.active {
+      display: block;
+    }
   </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
-  <nav class="bg-white shadow-sm">
+  <!-- Desktop Navigation -->
+  <nav class="desktop-nav bg-white shadow-sm">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
@@ -65,8 +96,6 @@
             MY
           </button>
           <a href="index.html" class="text-gray-700 hover:text-primary" data-translate="home">Home</a>
-          <a href="services.html" data-readdy="true" class="text-gray-700 hover:text-primary"
-            data-translate="services">Services</a>
           <a href="book.html" class="text-gray-700 hover:text-primary" data-translate="book">Book Now</a>
           <button class="flex items-center space-x-2 text-gray-700 hover:text-primary">
             <i class="ri-user-line w-5 h-5 flex items-center justify-center"></i>
@@ -77,27 +106,67 @@
     </div>
   </nav>
 
-  <div class="max-w-7xl mx-auto px-4 py-8">
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4" data-translate="findYourNearestAutoWorkshop">
-        Find Your Nearest Auto Workshop
-      </h1>
-      <p class="text-lg text-gray-600 mb-6" data-translate="quickAndReliableAutoRepairServicesNearYou">
-        Quick and reliable auto repair services near you
-      </p>
-      <div class="relative max-w-2xl mx-auto">
-        <input type="text" placeholder="Enter your location or postal code" data-translate-placeholder="enterLocation"
-          class="w-full px-4 py-3 pl-12 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary/20" />
-        <i
-          class="ri-map-pin-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 flex items-center justify-center"></i>
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav bg-white shadow-sm">
+    <div class="px-4">
+      <div class="flex justify-between items-center h-16">
+        <span class="text-2xl font-['Pacifico'] text-primary">logo</span>
+        <div class="flex items-center space-x-4">
+          <button id="mobileTranslateBtn" class="px-3 py-1 border rounded-button text-sm hover:bg-gray-100"
+            onclick="toggleLanguage()">
+            MY
+          </button>
+          <button class="flex items-center text-gray-700 hover:text-primary">
+            <i class="ri-user-line w-5 h-5 flex items-center justify-center"></i>
+          </button>
+          <button class="mobile-menu-button p-2" onclick="toggleMobileMenu()">
+            <i class="ri-menu-line text-2xl"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu Items -->
+      <div id="mobileMenu" class="hidden pb-4 space-y-4 border-t">
+        <a href="index.html" class="block text-gray-700 hover:text-primary pt-4" data-translate="home">Home</a>
+        <a href="book.html" class="block text-gray-700 hover:text-primary" data-translate="book">Book Now</a>
       </div>
     </div>
-    <div class="flex gap-6 mb-8">
-      <div class="w-3/5 h-[600px] rounded-lg overflow-hidden shadow-lg map-container"></div>
-      <div class="w-2/5 space-y-4">
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+      <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4" data-translate="findYourNearestAutoWorkshop">
+        Find Your Nearest Auto Workshop
+      </h1>
+      <p class="text-base md:text-lg text-gray-600 mb-6" data-translate="quickAndReliableAutoRepairServicesNearYou">
+        Quick and reliable auto repair services near you
+      </p>
+      <div class="relative max-w-2xl mx-auto px-2">
+        <select 
+          class="w-full px-4 py-3 pl-12 border rounded-button focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none"
+          data-translate-placeholder="enterLocation">
+          <option value="" selected disabled data-translate="selectTownship">Select Township</option>
+          <option value="aungmyaythazan" data-translate="aungmyaythazan">Aungmyaythazan</option>
+          <option value="chanmyathazi" data-translate="chanmyathazi">Chanmyathazi</option>
+          <option value="mahaaungmye" data-translate="mahaaungmye">Mahaaungmye</option>
+          <option value="chanayethazan" data-translate="chanayethazan">Chanayethazan</option>
+          <option value="pyigyidagon" data-translate="pyigyidagon">Pyigyidagon</option>
+          <option value="amarapura" data-translate="amarapura">Amarapura</option>
+          <option value="patheingyi" data-translate="patheingyi">Patheingyi</option>
+          <option value="okkyin" data-translate="okkyin">Okkyin</option>
+          <option value="mingyardon" data-translate="mingyardon">Mingyardon</option>
+          <option value="sintgaing" data-translate="sintgaing">Sintgaing</option>
+          <option value="madaya" data-translate="madaya">Madaya</option>
+          <option value="ngazun" data-translate="ngazun">Ngazun</option>
+        </select>
+        <i class="ri-map-pin-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 flex items-center justify-center"></i>
+        <i class="ri-arrow-down-s-line absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 flex items-center justify-center"></i>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row gap-6 mb-8">
+      <div class="w-full md:w-5/5 space-y-4">
         <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-          <div class="flex justify-between items-start mb-3">
-            <div>
+          <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
+            <div class="mb-2 md:mb-0">
               <h3 class="text-lg font-semibold" data-translate="premiumAutoCare">Premium Auto Care</h3>
               <div class="flex items-center text-sm text-gray-600">
                 <i class="ri-star-fill text-yellow-400 w-4 h-4 flex items-center justify-center"></i>
@@ -112,13 +181,14 @@
             <span class="px-3 py-1 text-sm bg-gray-100 rounded-full" data-translate="2Pm">02:00 PM</span>
           </div>
           <button class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
-            data-translate="book">
+            data-translate="book" onclick="showModal()">
             Book Now
           </button>
         </div>
+
         <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-          <div class="flex justify-between items-start mb-3">
-            <div>
+          <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
+            <div class="mb-2 md:mb-0">
               <h3 class="text-lg font-semibold" data-translate="quickFixAuto">Quick Fix Auto</h3>
               <div class="flex items-center text-sm text-gray-600">
                 <i class="ri-star-fill text-yellow-400 w-4 h-4 flex items-center justify-center"></i>
@@ -133,28 +203,26 @@
             <span class="px-3 py-1 text-sm bg-gray-100 rounded-full" data-translate="3Pm">03:00 PM</span>
           </div>
           <button class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90 transition-colors"
-            data-translate="book">
+            data-translate="book" onclick="showModal()">
             Book Now
           </button>
         </div>
       </div>
     </div>
-    <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-      <h2 class="text-2xl font-bold mb-6" data-translate="bookYourService">Book Your Service</h2>
-      <div class="grid grid-cols-2 gap-8">
-        <div class="space-y-6">
+    <!-- <div class="bg-white rounded-lg shadow-lg p-4 md:p-8 mb-8">
+      <h2 class="text-xl md:text-2xl font-bold mb-6" data-translate="bookYourService">Book Your Service</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+        <div class="space-y-4 md:space-y-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="vehicleDetails">Vehicle
-              Details</label>
-            <div class="grid grid-cols-3 gap-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="vehicleDetails">Vehicle Details</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <input type="text" placeholder="Make" class="w-full px-4 py-2 border rounded-button" />
               <input type="text" placeholder="Model" class="w-full px-4 py-2 border rounded-button" />
               <input type="text" placeholder="Year" class="w-full px-4 py-2 border rounded-button" />
             </div>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="serviesType">Service
-              Type</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="serviesType">Service Type</label>
             <select class="w-full px-4 py-2 border rounded-button">
               <option data-translate="regularMaintenance">Regular Maintenance</option>
               <option data-translate="brakeService">Brake Service</option>
@@ -163,23 +231,20 @@
             </select>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="problemDescription">Problem
-              Description</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="problemDescription">Problem Description</label>
             <textarea class="w-full px-4 py-2 border rounded-button h-32"
               placeholder="Describe the issue you're experiencing..."></textarea>
           </div>
         </div>
-        <div class="space-y-6">
+        <div class="space-y-4 md:space-y-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="contactInformation">Contact
-              Information</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="contactInformation">Contact Information</label>
             <input type="text" placeholder="Full Name" class="w-full px-4 py-2 border rounded-button mb-4" />
             <input type="email" placeholder="Email Address" class="w-full px-4 py-2 border rounded-button mb-4" />
             <input type="tel" placeholder="Phone Number" class="w-full px-4 py-2 border rounded-button" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="preferredDate&Time">Preferred
-              Date & Time</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="preferredDate&Time">Preferred Date & Time</label>
             <input type="date" class="w-full px-4 py-2 border rounded-button mb-4" />
             <select class="w-full px-4 py-2 border rounded-button">
               <option data-translate="Morning(9AM-12PM)">Morning (9AM - 12PM)</option>
@@ -189,50 +254,48 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="grid grid-cols-4 gap-6 mb-8">
-      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+    </div> -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+      <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm text-center">
         <i
-          class="ri-shield-check-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"></i>
+          class="ri-shield-check-line text-primary w-10 md:w-12 h-10 md:h-12 flex items-center justify-center mx-auto mb-3 md:mb-4 text-2xl md:text-3xl"></i>
         <h3 class="font-semibold mb-2" data-translate="certifiedMechanics">Certified Mechanics</h3>
-        <p class="text-sm text-gray-600" data-translate="allOurMechanicsAreCertifiedProfessionals">
+        <p class="text-xs md:text-sm text-gray-600" data-translate="allOurMechanicsAreCertifiedProfessionals">
           All our mechanics are certified professionals
         </p>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-        <i class="ri-time-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"></i>
+      <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm text-center">
+        <i class="ri-time-line text-primary w-10 md:w-12 h-10 md:h-12 flex items-center justify-center mx-auto mb-3 md:mb-4 text-2xl md:text-3xl"></i>
         <h3 class="font-semibold mb-2" data-translate="quickService">Quick Service</h3>
-        <p class="text-sm text-gray-600" data-translate="mostRepairsCompletedSameDay">Most repairs completed same day
-        </p>
+        <p class="text-xs md:text-sm text-gray-600" data-translate="mostRepairsCompletedSameDay">Most repairs completed same day</p>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+      <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm text-center">
         <i
-          class="ri-money-dollar-circle-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"></i>
+          class="ri-money-dollar-circle-line text-primary w-10 md:w-12 h-10 md:h-12 flex items-center justify-center mx-auto mb-3 md:mb-4 text-2xl md:text-3xl"></i>
         <h3 class="font-semibold mb-2" data-translate="bestPrices">Best Prices</h3>
-        <p class="text-sm text-gray-600" data-translate="competitivePricingGuaranteed">Competitive pricing guaranteed
-        </p>
+        <p class="text-xs md:text-sm text-gray-600" data-translate="competitivePricingGuaranteed">Competitive pricing guaranteed</p>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+      <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm text-center">
         <i
-          class="ri-customer-service-2-line text-primary w-12 h-12 flex items-center justify-center mx-auto mb-4 text-3xl"></i>
+          class="ri-customer-service-2-line text-primary w-10 md:w-12 h-10 md:h-12 flex items-center justify-center mx-auto mb-3 md:mb-4 text-2xl md:text-3xl"></i>
         <h3 class="font-semibold mb-2" data-translate="24/7 Support">24/7 Support</h3>
-        <p class="text-sm text-gray-600" data-translate="alwaysHereWhenYouNeedUs">Always here when you need us</p>
+        <p class="text-xs md:text-sm text-gray-600" data-translate="alwaysHereWhenYouNeedUs">Always here when you need us</p>
       </div>
     </div>
   </div>
 
-  <footer class="bg-gray-900 text-white py-12">
+  <footer class="bg-gray-900 text-white py-8 md:py-12">
     <div class="max-w-7xl mx-auto px-4">
-      <div class="grid grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
         <div>
-          <h4 class="font-['Pacifico'] text-2xl mb-4">logo</h4>
-          <p class="text-gray-400" data-translate="footerTagline">
+          <h4 class="font-['Pacifico'] text-xl md:text-2xl mb-4">logo</h4>
+          <p class="text-xs md:text-sm text-gray-400" data-translate="footerTagline">
             Your trusted partner for all auto repair needs
           </p>
         </div>
         <div>
-          <h4 class="font-semibold mb-4" data-translate="quickLinks">Quick Links</h4>
-          <ul class="space-y-2 text-gray-400">
+          <h4 class="font-semibold mb-2 md:mb-4 text-sm md:text-base" data-translate="quickLinks">Quick Links</h4>
+          <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-400">
             <li><a href="#" class="hover:text-white" data-translate="aboutUs">About Us</a></li>
             <li><a href="#" class="hover:text-white" data-translate="services">Services</a></li>
             <li><a href="#" class="hover:text-white" data-translate="locations">Locations</a></li>
@@ -240,8 +303,8 @@
           </ul>
         </div>
         <div>
-          <h4 class="font-semibold mb-4" data-translate="services">Services</h4>
-          <ul class="space-y-2 text-gray-400">
+          <h4 class="font-semibold mb-2 md:mb-4 text-sm md:text-base" data-translate="services">Services</h4>
+          <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-400">
             <li><a href="#" class="hover:text-white" data-translate="oilChange">Oil Change</a></li>
             <li><a href="#" class="hover:text-white" data-translate="brakeService">Brake Service</a></li>
             <li><a href="#" class="hover:text-white" data-translate="tireRotation">Tire Rotation</a></li>
@@ -249,37 +312,424 @@
           </ul>
         </div>
         <div>
-          <h4 class="font-semibold mb-4" data-translate="contactUs">Contact Us</h4>
-          <ul class="space-y-2 text-gray-400">
+          <h4 class="font-semibold mb-2 md:mb-4 text-sm md:text-base" data-translate="contactUs">Contact Us</h4>
+          <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-400">
             <li class="flex items-center">
-              <i class="ri-phone-line w-5 h-5 flex items-center justify-center mr-2"></i>
+              <i class="ri-phone-line w-4 h-4 flex items-center justify-center mr-2"></i>
               1-800-AUTO-HELP
             </li>
             <li class="flex items-center">
-              <i class="ri-mail-line w-5 h-5 flex items-center justify-center mr-2"></i>
+              <i class="ri-mail-line w-4 h-4 flex items-center justify-center mr-2"></i>
               support@autoworkshop.com
             </li>
           </ul>
         </div>
       </div>
-      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+      <div class="border-t border-gray-800 mt-6 md:mt-8 pt-6 md:pt-8 text-center text-xs md:text-sm text-gray-400">
         <p data-translate="copyright">&copy; 2025 Auto Workshop Finder. All rights reserved.</p>
       </div>
     </div>
   </footer>
-  <script>
 
+  <!-- Booking Modal -->
+  <div id="bookingModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div class="p-4 border-b flex justify-between items-center">
+        <h3 class="text-xl font-semibold" data-translate="bookService">Book Service</h3>
+        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+
+      <div class="p-4">
+        <!-- Step 1: Vehicle Information -->
+        <div class="step-content active" id="step1">
+          <h2 class="text-xl font-semibold mb-6" data-translate="vehicleInformation">Vehicle Information</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="vehicleMake">Vehicle Make</label>
+              <div class="relative">
+                <button class="w-full px-4 py-2 bg-white border rounded-button text-left flex items-center justify-between cursor-pointer"
+                  onclick="toggleDropdown('makeDropdown')">
+                  <span id="selectedMake" data-translate="selectMake">Select Make</span>
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div id="makeDropdown" class="hidden absolute w-full mt-1 bg-white border rounded-lg shadow-lg z-10">
+                  <div class="p-2">
+                    <div class="cursor-pointer p-2 hover:bg-gray-100 rounded" onclick="selectMake('Toyota')">
+                      Toyota
+                    </div>
+                    <div class="cursor-pointer p-2 hover:bg-gray-100 rounded" onclick="selectMake('Honda')">
+                      Honda
+                    </div>
+                    <div class="cursor-pointer p-2 hover:bg-gray-100 rounded" onclick="selectMake('Ford')">
+                      Ford
+                    </div>
+                    <div class="cursor-pointer p-2 hover:bg-gray-100 rounded" onclick="selectMake('BMW')">
+                      BMW
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="vehicleModel">Vehicle Model</label>
+              <div class="relative">
+                <button class="w-full px-4 py-2 bg-white border rounded-button text-left flex items-center justify-between cursor-pointer"
+                  onclick="toggleDropdown('modelDropdown')">
+                  <span id="selectedModel" data-translate="selectModel">Select Model</span>
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div id="modelDropdown" class="hidden absolute w-full mt-1 bg-white border rounded-lg shadow-lg z-10">
+                  <div class="p-2" id="modelOptions">
+                    <div class="text-gray-500 p-2" data-translate="selectMakeFirst">
+                      Please select a make first
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="vehicleYear">Year</label>
+              <div class="relative">
+                <button class="w-full px-4 py-2 bg-white border rounded-button text-left flex items-center justify-between cursor-pointer"
+                  onclick="toggleDropdown('yearDropdown')">
+                  <span id="selectedYear" data-translate="selectYear">Select Year</span>
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div id="yearDropdown" class="hidden absolute w-full mt-1 bg-white border rounded-lg shadow-lg z-10">
+                  <div class="p-2">
+                    <div class="cursor-pointer p-2 hover:bg-gray-100 rounded" onclick="selectYear('2025')">
+                      2025
+                    </div>
+                    <div class="cursor-pointer p-2 hover:bg-gray-100 rounded" onclick="selectYear('2024')">
+                      2024
+                    </div>
+                    <div class="cursor-pointer p-2 hover:bg-gray-100 rounded" onclick="selectYear('2023')">
+                      2023
+                    </div>
+                    <div class="cursor-pointer p-2 hover:bg-gray-100 rounded" onclick="selectYear('2022')">
+                      2022
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="currentMileage">Current Mileage</label>
+              <input type="text" class="w-full px-4 py-2 border rounded-button" 
+                     data-translate-placeholder="enterMileage" placeholder="Enter mileage" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Select Services -->
+        <div class="step-content" id="step2">
+          <h2 class="text-xl font-semibold mb-6" data-translate="selectServices">Select Services</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="border rounded-lg p-4 cursor-pointer hover:border-primary" onclick="toggleService(this)">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <i class="ri-oil-line text-primary text-2xl"></i>
+                </div>
+                <div class="w-6 h-6 border-2 rounded-full flex items-center justify-center service-checkbox">
+                  <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold mb-2" data-translate="oilChangeService">Oil Change Service</h3>
+              <p class="text-gray-600 text-sm mb-4" data-translate="oilChangeDesc">
+                Complete oil change with premium synthetic oil and filter replacement
+              </p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600" data-translate="duration30-45">30-45 minutes</span>
+                <span class="font-semibold">$49.99</span>
+              </div>
+            </div>
+
+            <div class="border rounded-lg p-4 cursor-pointer hover:border-primary" onclick="toggleService(this)">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <i class="ri-brake-line text-primary text-2xl"></i>
+                </div>
+                <div class="w-6 h-6 border-2 rounded-full flex items-center justify-center service-checkbox">
+                  <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold mb-2" data-translate="brakeService">Brake Service</h3>
+              <p class="text-gray-600 text-sm mb-4" data-translate="brakeServiceDesc">
+                Complete brake inspection, pad replacement, and rotor resurfacing
+              </p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600" data-translate="duration1-2hours">1-2 hours</span>
+                <span class="font-semibold">$149.99</span>
+              </div>
+            </div>
+
+            <div class="border rounded-lg p-4 cursor-pointer hover:border-primary" onclick="toggleService(this)">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <i class="ri-steering-line text-primary text-2xl"></i>
+                </div>
+                <div class="w-6 h-6 border-2 rounded-full flex items-center justify-center service-checkbox">
+                  <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold mb-2" data-translate="tireRotation">Tire Rotation</h3>
+              <p class="text-gray-600 text-sm mb-4" data-translate="tireRotationDesc">
+                Professional tire rotation, balancing, and pressure adjustment
+              </p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600" data-translate="duration45-60">45-60 minutes</span>
+                <span class="font-semibold">$59.99</span>
+              </div>
+            </div>
+
+            <div class="border rounded-lg p-4 cursor-pointer hover:border-primary" onclick="toggleService(this)">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <i class="ri-dashboard-3-line text-primary text-2xl"></i>
+                </div>
+                <div class="w-6 h-6 border-2 rounded-full flex items-center justify-center service-checkbox">
+                  <div class="w-3 h-3 bg-primary rounded-full hidden"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold mb-2" data-translate="engineDiagnostic">Engine Diagnostic</h3>
+              <p class="text-gray-600 text-sm mb-4" data-translate="engineDiagnosticDesc">
+                Comprehensive engine diagnostic with computer analysis
+              </p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600" data-translate="duration60-90">60-90 minutes</span>
+                <span class="font-semibold">$89.99</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact Information -->
+        <div class="step-content" id="step3">
+          <h2 class="text-xl font-semibold mb-6" data-translate="contactInformation">Contact Information</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="fullName">Full Name</label>
+              <input type="text" class="w-full px-4 py-2 border rounded-button" 
+                     data-translate-placeholder="enterFullName" placeholder="Enter your full name" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="emailAddress">Email Address</label>
+              <input type="email" class="w-full px-4 py-2 border rounded-button" 
+                     data-translate-placeholder="enterEmail" placeholder="Enter your email" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="phoneNumber">Phone Number</label>
+              <input type="tel" class="w-full px-4 py-2 border rounded-button" 
+                     data-translate-placeholder="enterPhone" placeholder="Enter your phone number" />
+            </div>
+
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="specialInstructions">Special Instructions</label>
+              <textarea class="w-full px-4 py-2 border rounded-button" rows="4"
+                data-translate-placeholder="enterSpecialInstructions" placeholder="Any additional notes or requests"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Processing -->
+        <div class="step-content" id="step4">
+          <div class="text-center py-12">
+            <div class="animate-spin mb-6">
+              <i class="ri-loader-4-line text-4xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-4" data-translate="processingBooking">Processing Your Booking</h3>
+            <p class="text-gray-600" data-translate="pleaseWait">Please wait while we confirm your appointment</p>
+            <div class="mt-6 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div class="progress-bar h-full bg-primary w-0 animate-progress"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="flex justify-between mt-6">
+          <button id="prevBtn" class="hidden px-6 py-2 border rounded-button hover:bg-gray-50" data-translate="previous" onclick="prevStep()">
+            Previous
+          </button>
+          <button id="nextBtn" class="ml-auto px-6 py-2 bg-primary text-white rounded-button hover:bg-primary/90" 
+                  data-translate="next" onclick="nextStep()">
+            Next
+          </button>
+          <button id="submitBtn" class="hidden px-6 py-2 bg-primary text-white rounded-button hover:bg-primary/90" 
+                  data-translate="submitBooking" onclick="submitBooking()">
+            Submit Booking
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal Functions
+    let currentStep = 1;
+
+    function showModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      resetSteps();
+    }
+
+    function closeModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function resetSteps() {
+      currentStep = 1;
+      document.querySelectorAll('.step-content').forEach(step => {
+        step.classList.remove('active');
+      });
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('prevBtn').classList.add('hidden');
+      document.getElementById('nextBtn').classList.remove('hidden');
+      document.getElementById('submitBtn').classList.add('hidden');
+    }
+
+    function nextStep() {
+      if (currentStep === 1) {
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+        document.getElementById('prevBtn').classList.remove('hidden');
+        currentStep = 2;
+      } else if (currentStep === 2) {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active'); // Fix: Show Step 3
+        document.getElementById('nextBtn').classList.remove('hidden');
+        document.getElementById('submitBtn').classList.add('hidden');
+        currentStep = 3;
+      } else if (currentStep === 3) {
+        document.getElementById('step3').classList.remove('active');
+        document.getElementById('step4').classList.add('active');
+        document.getElementById('nextBtn').classList.add('hidden');
+        document.getElementById('submitBtn').classList.remove('hidden');
+        currentStep = 4;
+      }
+    }
+
+
+    function prevStep() {
+      if (currentStep === 2) {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step1').classList.add('active');
+        document.getElementById('prevBtn').classList.add('hidden');
+        document.getElementById('nextBtn').classList.remove('hidden');
+        document.getElementById('submitBtn').classList.add('hidden');
+        currentStep = 1;
+      } else if (currentStep === 3) {
+        document.getElementById('step3').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+        document.getElementById('nextBtn').classList.remove('hidden');
+        document.getElementById('submitBtn').classList.add('hidden');
+        currentStep = 2;
+      }
+    }
+
+    function submitBooking() {
+      document.getElementById('step3').classList.remove('active');
+      document.getElementById('step4').classList.add('active');
+      document.getElementById('prevBtn').classList.add('hidden');
+      document.getElementById('nextBtn').classList.add('hidden');
+      document.getElementById('submitBtn').classList.add('hidden');
+      
+      setTimeout(() => {
+        closeModal();
+        alert('Booking submitted successfully!');
+      }, 3000);
+    }
+
+    // Service Selection
+    let selectedServices = [];
+
+    function toggleService(element) {
+      element.classList.toggle('border-primary');
+      element.classList.toggle('bg-primary/5');
+      const checkbox = element.querySelector('.service-checkbox div');
+      checkbox.classList.toggle('hidden');
+      
+      const serviceName = element.querySelector('h3').textContent;
+      if (selectedServices.includes(serviceName)) {
+        selectedServices = selectedServices.filter(name => name !== serviceName);
+      } else {
+        selectedServices.push(serviceName);
+      }
+    }
+
+    // Dropdown Functions
+    function toggleDropdown(dropdownId) {
+      const dropdown = document.getElementById(dropdownId);
+      dropdown.classList.toggle('hidden');
+    }
+
+    // Vehicle Models Data
+    const vehicleModels = {
+      'Toyota': ['Camry', 'Corolla', 'Prius', 'RAV4'],
+      'Honda': ['Accord', 'Civic', 'CR-V', 'Pilot'],
+      'Ford': ['F-150', 'Focus', 'Escape', 'Explorer'],
+      'BMW': ['3 Series', '5 Series', 'X5', 'X3']
+    };
+
+    function selectMake(make) {
+      document.getElementById('selectedMake').textContent = make;
+      populateModels(make);
+      toggleDropdown('makeDropdown');
+    }
+
+    function populateModels(make) {
+      const modelOptions = document.getElementById('modelOptions');
+      modelOptions.innerHTML = '';
+      
+      vehicleModels[make].forEach(model => {
+        const div = document.createElement('div');
+        div.className = 'cursor-pointer p-2 hover:bg-gray-100 rounded';
+        div.textContent = model;
+        div.onclick = () => selectModel(model);
+        modelOptions.appendChild(div);
+      });
+    }
+
+    function selectModel(model) {
+      document.getElementById('selectedModel').textContent = model;
+      toggleDropdown('modelDropdown');
+    }
+
+    function selectYear(year) {
+      document.getElementById('selectedYear').textContent = year;
+      toggleDropdown('yearDropdown');
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('bookingModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    // Translations
     const translations = {
       'home': { en: 'Home', my: 'ပင်မ' },
       'services': { en: 'Services', my: 'ဝန်ဆောင်မှုများ' },
       'book': { en: 'Book Now', my: 'စာရင်းသွင်းရန်' },
       'account': { en: 'Account', my: 'အကောင့်' },
-
-      //
-      'enterLocation': { 
-        en: 'Enter your location or postal code', 
-        my: 'တည်နေရာ သို့မဟုတ် စာတိုက်သင်္ကေတ ရိုက်ထည့်ပါ' 
-      },
+      'enterLocation': { en: 'Enter your location or postal code', my: 'တည်နေရာ သို့မဟုတ် စာတိုက်သင်္ကေတ ရိုက်ထည့်ပါ' },
       'findYourNearestAutoWorkshop': { en: 'Find Your Nearest Auto Workshop', my: 'သင့်အနီးဆုံး ကားပြင်ဆိုင်ရှာဖွေပါ' },
       'quickAndReliableAutoRepairServicesNearYou': { en: 'Quick and reliable auto repair services near you', my: 'သင့်နေရာအနီးပတ်ဝန်းကျင်ရှိ မြန်ဆန်စိတ်ချရသော ကားပြင်ဝန်ဆောင်မှုများ' },
       'premiumAutoCare': { en: 'Premium Auto Care', my: 'အဆင့်မြင့်ကားပြင်စောင့်ရှောက်မှု' },
@@ -310,7 +760,19 @@
       'Morning(9AM-12PM)': { en: 'Morning (9AM - 12PM)', my: 'မနက် (၉နာရီမှ ၁၂နာရီ)' },
       'Afternoon(12PM-4PM)': { en: 'Afternoon (12PM - 4PM)', my: 'မွန်းလွဲ (၁၂နာရီမှ ၄နာရီ)' },
       'Evening(4PM-7PM)': { en: 'Evening (4PM - 7PM)', my: 'ညနေ (၄နာရီမှ ၇နာရီ)' },
-      //
+      'selectTownship': { en: 'Select Township', my: 'မြို့နယ်ရွေးချယ်ပါ' },
+      'aungmyaythazan': { en: 'Aungmyaythazan', my: 'အောင်မြေသာစံ' },
+      'chanmyathazi': { en: 'Chanmyathazi', my: 'ချမ်းမြသာစည်' },
+      'mahaaungmye': { en: 'Mahaaungmye', my: 'မဟာအောင်မြေ' },
+      'chanayethazan': { en: 'Chanayethazan', my: 'ချားနိုးတံခါး' },
+      'pyigyidagon': { en: 'Pyigyidagon', my: 'ပြည်ကြီးတံခွန်' },
+      'amarapura': { en: 'Amarapura', my: 'အမရပူရ' },
+      'patheingyi': { en: 'Patheingyi', my: 'ပုသိမ်ကြီး' },
+      'okkyin': { en: 'Okkyin', my: 'ဥက္ကံ' },
+      'mingyardon': { en: 'Mingyardon', my: 'မင်းကြာဒုံ' },
+      'sintgaing': { en: 'Sintgaing', my: 'စဉ့်ကိုင်' },
+      'madaya': { en: 'Madaya', my: 'မတ္တရာ' },
+      'ngazun': { en: 'Ngazun', my: 'ငါန်းဇွန်' },
       'footerTagline': { en: 'Your trusted partner for all auto repair needs', my: 'ကားပြင်ဆိုင်လိုအပ်ချက်အားလုံးအတွက် ယုံကြည်စိတ်ချရသော မိတ်ဖက်တစ်ဦး' },
       'quickLinks': { en: 'Quick Links', my: 'အမြန်လင့်ခ်များ' },
       'aboutUs': { en: 'About Us', my: 'ကျွန်ုပ်တို့အကြောင်း' },
@@ -319,13 +781,51 @@
       'oilChange': { en: 'Oil Change', my: 'ဆီအပြောင်းအလဲ' },
       'tireRotation': { en: 'Tire Rotation', my: 'တာယာလှည့်ပတ်မှု' },
       'contactUs': { en: 'Contact Us', my: 'ဆက်သွယ်ရန်' },
-      'copyright': { en: '© 2025 Auto Workshop Finder. All rights reserved.', my: 'မူပိုင်ခွင့် © ၂၀၂၅ ကားပြင်ဆိုင်ရှာဖွေရေး။ မူပိုင်ခွင့်အားလုံးရရှိထားပါသည်။' }
+      'copyright': { en: '© 2025 Auto Workshop Finder. All rights reserved.', my: 'မူပိုင်ခွင့် © ၂၀၂၅ ကားပြင်ဆိုင်ရှာဖွေရေး။ မူပိုင်ခွင့်အားလုံးရရှိထားပါသည်။' },
+      'bookService': { en: 'Book Service', my: 'ဝန်ဆောင်မှုစာရင်းသွင်းရန်' },
+      'previous': { en: 'Previous', my: 'နောက်သို့' },
+      'next': { en: 'Next', my: 'ရှေ့သို့' },
+      'submitBooking': { en: 'Submit Booking', my: 'စာရင်းပေးသွင်းပါ' },
+      'vehicleInformation': { en: 'Vehicle Information', my: 'ယာဉ်အချက်အလက်' },
+      'vehicleMake': { en: 'Vehicle Make', my: 'ယာဉ်အမျိုးအစား' },
+      'selectMake': { en: 'Select Make', my: 'အမျိုးအစားရွေးပါ' },
+      'vehicleModel': { en: 'Vehicle Model', my: 'ယာဉ်မော်ဒယ်' },
+      'selectModel': { en: 'Select Model', my: 'မော်ဒယ်ရွေးပါ' },
+      'vehicleYear': { en: 'Year', my: 'ထုတ်လုပ်နှစ်' },
+      'selectYear': { en: 'Select Year', my: 'နှစ်ရွေးပါ' },
+      'currentMileage': { en: 'Current Mileage', my: 'လက်ရှိမိုင်နှုန်း' },
+      'enterMileage': { en: 'Enter mileage', my: 'မိုင်နှုန်းရိုက်ထည့်ပါ' },
+      'selectServices': { en: 'Select Services', my: 'ဝန်ဆောင်မှုများရွေးချယ်ပါ' },
+      'oilChangeService': { en: 'Oil Change Service', my: 'ဆီအပြောင်းအလဲဝန်ဆောင်မှု' },
+      'oilChangeDesc': { en: 'Complete oil change with premium synthetic oil and filter replacement', my: 'အရည်အသွေးမြင့်ဆီအပြောင်းနှင့် စစ်ထုတ်ကိရိယာအသစ်လဲလှယ်ခြင်း' },
+      'duration30-45': { en: '30-45 minutes', my: '၃၀-၄၅ မိနစ်' },
+      'brakeService': { en: 'Brake Service', my: 'ဘရိတ်ဝန်ဆောင်မှု' },
+      'brakeServiceDesc': { en: 'Complete brake inspection, pad replacement, and rotor resurfacing', my: 'ဘရိတ်စစ်ဆေးခြင်း၊ ပက်အသစ်လဲခြင်းနှင့် ရိုတာပြန်လည်ပြုပြင်ခြင်း' },
+      'duration1-2hours': { en: '1-2 hours', my: '၁-၂ နာရီ' },
+      'tireRotation': { en: 'Tire Rotation', my: 'တာယာလှည့်ပတ်ခြင်း' },
+      'tireRotationDesc': { en: 'Professional tire rotation, balancing, and pressure adjustment', my: 'တာယာလှည့်ပတ်ခြင်း၊ ညှိခြင်းနှင့် လေဖိအားညှိခြင်း' },
+      'duration45-60': { en: '45-60 minutes', my: '၄၅-၆၀ မိနစ်' },
+      'engineDiagnostic': { en: 'Engine Diagnostic', my: 'အင်ဂျင်စစ်ဆေးခြင်း' },
+      'engineDiagnosticDesc': { en: 'Comprehensive engine diagnostic with computer analysis', my: 'ကွန်ပျူတာဖြင့် အင်ဂျင်အပြည့်အစုံစစ်ဆေးခြင်း' },
+      'duration60-90': { en: '60-90 minutes', my: '၆၀-၉၀ မိနစ်' },
+      'processingBooking': { en: 'Processing Your Booking', my: 'စာရင်းသွင်းမှုကိုစီမံဆောင်ရွက်နေသည်' },
+      'pleaseWait': { en: 'Please wait while we confirm your appointment', my: 'ကျေးဇူးပြု၍ သင့်ချိန်းဆိုမှုအတည်ပြုချိန်ထိ စောင့်ဆိုင်းပါ' },
+      'fullName': { en: 'Full Name', my: 'အမည်အပြည့်အစုံ' },
+      'enterFullName': { en: 'Enter your full name', my: 'အမည်အပြည့်အစုံရိုက်ထည့်ပါ' },
+      'emailAddress': { en: 'Email Address', my: 'အီးမေးလ်လိပ်စာ' },
+      'enterEmail': { en: 'Enter your email', my: 'အီးမေးလ်လိပ်စာရိုက်ထည့်ပါ' },
+      'phoneNumber': { en: 'Phone Number', my: 'ဖုန်းနံပါတ်' },
+      'enterPhone': { en: 'Enter your phone number', my: 'ဖုန်းနံပါတ်ရိုက်ထည့်ပါ' },
+      'specialInstructions': { en: 'Special Instructions', my: 'အထူးညွှန်ကြားချက်များ' },
+      'enterSpecialInstructions': { en: 'Any additional notes or requests', my: 'အပိုမှတ်စုများ သို့မဟုတ် တောင်းဆိုချက်များ' },
+      'selectMakeFirst': { en: 'Please select a make first', my: 'ကျေးဇူးပြု၍ အရင်ဆုံး ကားအမျိုးအစားရွေးပါ' }
     };
 
     let currentLang = localStorage.getItem('languagePreference') || 'en';
 
     // Initialize translate button text
     document.getElementById('translateBtn').textContent = currentLang === 'en' ? 'MY' : 'EN';
+    document.getElementById('mobileTranslateBtn').textContent = currentLang === 'en' ? 'MY' : 'EN';
 
     function toggleLanguage() {
       currentLang = currentLang === 'en' ? 'my' : 'en';
@@ -334,6 +834,7 @@
       localStorage.setItem('languagePreference', currentLang);
 
       document.getElementById('translateBtn').textContent = currentLang === 'en' ? 'MY' : 'EN';
+      document.getElementById('mobileTranslateBtn').textContent = currentLang === 'en' ? 'MY' : 'EN';
       translatePage();
     }
 
@@ -362,9 +863,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       translatePage();
-
     });
   </script>
 </body>
-
 </html>

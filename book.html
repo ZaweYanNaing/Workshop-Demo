@@ -41,22 +41,36 @@
     :where([class^="ri-"])::before { content: "\f3c2"; }
     .step-content { display: none; }
     .step-content.active { display: block; }
+    /* Hide desktop nav on mobile */
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+    }
+
+    /* Show mobile nav on mobile */
+    @media (min-width: 769px) {
+      .mobile-nav {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-  <nav class="bg-white shadow-sm">
+  <!-- Desktop Navigation -->
+  <nav class="desktop-nav bg-white shadow-sm">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
-          <a href="book.html" class="text-2xl font-['Pacifico'] text-primary">logo</a>
+          <span class="text-2xl font-['Pacifico'] text-primary">logo</span>
         </div>
         <div class="flex items-center space-x-8">
-          <button id="translateBtn" class="px-3 py-1 border rounded-button text-sm hover:bg-gray-100" onclick="toggleLanguage()">
+          <button id="translateBtn" class="px-3 py-1 border rounded-button text-sm hover:bg-gray-100"
+            onclick="toggleLanguage()">
             MY
           </button>
           <a href="index.html" class="text-gray-700 hover:text-primary" data-translate="home">Home</a>
-          <a href="services.html" class="text-gray-700 hover:text-primary" data-translate="services">Services</a>
-          <a href="book.html" class="text-primary font-medium" data-translate="book">Book Now</a>
+          <a href="book.html" class="text-gray-700 hover:text-primary" data-translate="book">Book Now</a>
           <button class="flex items-center space-x-2 text-gray-700 hover:text-primary">
             <i class="ri-user-line w-5 h-5 flex items-center justify-center"></i>
             <span data-translate="account">Account</span>
@@ -65,6 +79,33 @@
       </div>
     </div>
   </nav>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav bg-white shadow-sm">
+    <div class="px-4">
+      <div class="flex justify-between items-center h-16">
+        <span class="text-2xl font-['Pacifico'] text-primary">logo</span>
+        <div class="flex items-center space-x-4">
+          <button id="mobileTranslateBtn" class="px-3 py-1 border rounded-button text-sm hover:bg-gray-100"
+            onclick="toggleLanguage()">
+            MY
+          </button>
+          <button class="flex items-center text-gray-700 hover:text-primary">
+            <i class="ri-user-line w-5 h-5 flex items-center justify-center"></i>
+          </button>
+          <button class="mobile-menu-button p-2" onclick="toggleMobileMenu()">
+            <i class="ri-menu-line text-2xl"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu Items -->
+      <div id="mobileMenu" class="hidden pb-4 space-y-4 border-t">
+        <a href="index.html" class="block text-gray-700 hover:text-primary pt-4" data-translate="home">Home</a>
+        <a href="book.html" class="block text-gray-700 hover:text-primary" data-translate="book">Book Now</a>
+      </div>
+    </div>
+  </nav>
+
 
   <div class="max-w-4xl mx-auto px-4 py-8">
     <div class="mb-8">
@@ -112,7 +153,7 @@
       <!-- Step 1: Vehicle Information -->
       <div class="step-content active" id="step1">
         <h2 class="text-xl font-semibold mb-6" data-translate="vehicleInformation">Vehicle Information</h2>
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="vehicleMake">Vehicle Make</label>
             <div class="relative">
@@ -196,7 +237,7 @@
       <!-- Step 2: Select Services -->
       <div class="step-content" id="step2">
         <h2 class="text-xl font-semibold mb-6" data-translate="selectServices">Select Services</h2>
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="border rounded-lg p-4 cursor-pointer hover:border-primary" onclick="toggleService(this)">
             <div class="flex items-center justify-between mb-4">
               <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -278,7 +319,7 @@
       <!-- Step 3: Date & Time -->
       <div class="step-content" id="step3">
         <h2 class="text-xl font-semibold mb-6" data-translate="selectDateTime">Select Date & Time</h2>
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="preferredDate">Preferred Date</label>
             <div class="bg-white border rounded-lg p-4">
@@ -350,7 +391,7 @@
       <!-- Step 4: Contact Information -->
       <div class="step-content" id="step4">
         <h2 class="text-xl font-semibold mb-6" data-translate="contactInformation">Contact Information</h2>
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="fullName">Full Name</label>
             <input type="text" class="w-full px-4 py-2 border rounded-button" 
@@ -381,7 +422,7 @@
       <div class="step-content" id="step5">
         <h2 class="text-xl font-semibold mb-6" data-translate="reviewConfirm">Review & Confirm</h2>
         <div class="bg-gray-50 rounded-lg p-6 mb-6">
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 class="font-medium text-gray-700 mb-2" data-translate="vehicleDetails">Vehicle Information</h3>
               <p class="text-gray-600" id="reviewVehicle">
@@ -449,6 +490,12 @@
   </div>
 
   <script>
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    }
     // Complete translations object
     const translations = {
       // Navigation
